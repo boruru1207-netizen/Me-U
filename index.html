@@ -2,43 +2,85 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>我们的友谊收纳册</title>
+    <title>Me&U</title>
     <style>
-        body {
-    background: url('bg.HEIC') no-repeat center center fixed;
-    background-size: cover;
-    color: #ffffff; 
-    font-family: 'PingFang SC', sans-serif;
-    text-align: center;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-    margin: 0;
-    padding: 0;
-}
-.container {
-    background: rgba(255, 255, 255, 0.2); 
-    backdrop-filter: blur(5px); 
-    display: inline-block;
-    padding: 40px;
-    border-radius: 20px;
-    margin-top: 15vh;
-}
-        h1 { font-size: 3em; }
-        p { font-size: 1.2em; color: #000; }
-        .timer { font-weight: bold; font-size: 2em; margin: 20px; }
+        body, html { margin: 0; padding: 0; height: 100%; overflow: hidden; font-family: 'PingFang SC', sans-serif; }
+
+        #welcome-page {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: url('grass.jpg') no-repeat center center; background-size: cover;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            z-index: 100; transition: transform 0.8s ease-in-out;
+        }
+        
+        #welcome-page::after {
+            content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: radial-gradient(rgba(0,0,0,0.1) 1px, transparent 1px);
+            background-size: 20px 20px; pointer-events: none;
+        }
+
+        .floating-head {
+            position: absolute; width: 80px; height: 100px;
+            border-radius: 50% / 40%; 
+            border: 4px solid white; box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            background-size: cover; background-position: center;
+            animation: swing 4s ease-in-out infinite alternate;
+        }
+
+        @keyframes swing {
+            from { transform: rotate(-10deg) translateY(0); }
+            to { transform: rotate(10deg) translateY(-20px); }
+        }
+
+        .enter-btn {
+            position: absolute; bottom: 15%; padding: 15px 40px;
+            background: #ffffff; color: #4a7c44; border: none;
+            border-radius: 50px; font-size: 1.2em; font-weight: bold;
+            cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            z-index: 101; transition: 0.3s;
+        }
+        .enter-btn:hover { transform: scale(1.1); background: #f0f0f0；}
+            
+        #main-content {
+            height: 100vh; background: url('bg.jpg') no-repeat center center fixed;
+            background-size: cover; display: flex; align-items: center; justify-content: center;
+            text-align: center;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(10px);
+            padding: 40px; border-radius: 20px; color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        p { color: #000; }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>魏饼之主•鸡公煲狂热爱好者•粉紫色发尾持有者•身高170+•吉娃娃狗塑——魏依女士
-            你好(^^)o</h1>
-        <p>从09年上幼儿园中班到现在，我们已经认识了：</p>
-        <div class="timer" id="timer">加载中...</div>
-        <p>“最好的友谊，就是各自忙乱，互相牵挂。”</p>
+
+    <div id="welcome-page">
+        <div class="floating-head" style="top: 20%; left: 15%; background-image: url('head1.png'); animation-delay: 0s;"></div>
+        <div class="floating-head" style="top: 15%; right: 20%; background-image: url('head2.png'); animation-delay: 0.5s;"></div>
+        <div class="floating-head" style="top: 40%; left: 40%; background-image: url('head3.png'); animation-delay: 1s;"></div>
+        
+        <button class="enter-btn" onclick="enterSite()">START</button>
+    </div>
+
+    <div id="main-content">
+        <div class="container">
+            <h1>亲爱的魏依女士•魏饼之主•粉紫色发尾持有者•吉娃娃狗塑者
+            你好(^^)</h1>
+            <p>从认识到现在，我们已经一起走过了：</p>
+            <div id="timer" style="font-size: 2.5em; font-weight: bold; margin: 20px 0;">加载中...</div>
+            <p>“最好的友谊，就是各自忙乱，互相牵挂。”</p>
+        </div>
     </div>
 
     <script>
-        // 2009，09-1，0
-        const startDate = new Date(2022, 4, 20); 
+        // 
+        function enterSite() {
+            document.getElementById('welcome-page').style.transform = 'translateY(-100%)';
+        }
+
+        // 
+        const startDate = new Date(2009, 09, 01); // 
         setInterval(() => {
             const now = new Date();
             const diff = now - startDate;
