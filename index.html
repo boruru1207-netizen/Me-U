@@ -4,67 +4,58 @@
     <meta charset="UTF-8">
     <title>Me&U</title>
     <style>
+        /* 基础样式 */
         body, html { margin: 0; padding: 0; height: 100%; overflow: hidden; font-family: 'PingFang SC', sans-serif; background-color: #000; }
 
+        /* --- 启动页样式 --- */
         #welcome-page {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: url('grass.jpg') no-repeat center center; background-size: cover;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            display: flex; align-items: center; justify-content: center;
             z-index: 100; transition: transform 0.8s ease-in-out;
-            perspective: 1000px; 
+            perspective: 1000px;
         }
         
+        /* 加深网点效果 */
         #welcome-page::after {
             content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background-image: radial-gradient(rgba(0,0,0,0.25) 1px, transparent 1.5px);
+            background-image: radial-gradient(rgba(0,0,0,0.3) 1px, transparent 1.5px);
             background-size: 15px 15px; pointer-events: none;
         }
 
+        /* 🌟 漂浮的 Emoji：调大尺寸和不透明度 */
         .star {
-            position: absolute; font-size: 2em;
-            animation: floatStar 5s infinite ease-in-out;
-            opacity: 0.8;
-            pointer-events: none; 
-        }
-        @keyframes floatStar {
-            0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.8; }
-            50% { transform: translateY(-30px) rotate(20deg); opacity: 0.4; }
+            position: absolute; font-size: 3.5em; animation: floatStar 5s infinite ease-in-out;
+            opacity: 0.95; z-index: 102; pointer-events: none;
         }
 
-        
-        .bbq-skewer {
-            position: relative; width: 100%; height: 40vh; 
-            display: flex; justify-content: center; align-items: center; gap: 30px; 
-            z-index: 10;
-        }
-
+        /* 椭圆照片样式：更长更窄 */
         .skewer-piece {
-            width: 100px; 
-            height: 180px; 
-            border-radius: 50px; 
-            border: 4px solid #fff;
-            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
-            background-size: cover;
-            background-position: center;
+            position: absolute; width: 120px; height: 220px; 
+            border-radius: 60px; border: 5px solid #fff;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+            background-size: cover; background-position: center;
             animation: flipBBQ 6s infinite linear;
-            transform-origin: center center; 
-            backface-visibility: hidden; 
         }
 
-        @keyframes flipBBQ {
-            0% { transform: rotateX(0deg); }
-            100% { transform: rotateY(360deg); } 
+        /* 动画：烤串翻转和星星漂浮 */
+        @keyframes flipBBQ { 0% { transform: rotateX(0deg); } 100% { transform: rotateX(360deg); } }
+        @keyframes floatStar {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-40px) rotate(20deg); }
         }
 
+        /* 按钮样式 */
         .enter-btn {
             position: absolute; bottom: 15%; padding: 15px 40px;
             background: #ffffff; color: #4a7c44; border: none;
             border-radius: 50px; font-size: 1.3em; font-weight: bold;
             cursor: pointer; box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-            z-index: 101; transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 105; transition: 0.3s;
         }
-        .enter-btn:hover { transform: scale(1.1) translateY(-5px); background: #fcfcfc; box-shadow: 0 12px 25px rgba(0,0,0,0.4); }
+        .enter-btn:hover { transform: scale(1.1) translateY(-5px); }
 
+        /* --- 内容页样式 (第二页) --- */
         #main-content {
             height: 100vh; background: url('bg.jpg') no-repeat center center fixed;
             background-size: cover; display: flex; align-items: center; justify-content: center;
@@ -73,35 +64,29 @@
         .container {
             background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
             padding: 40px; border-radius: 20px; color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-            max-width: 80%;
         }
-        h1 { font-size: 3em; margin: 0; }
-        .timer { font-size: 2.5em; font-weight: bold; margin: 20px 0; }
+        #timer { font-size: 2.5em; font-weight: bold; margin: 20px 0; }
         p { font-size: 1.2em; color: #000; }
     </style>
 </head>
 <body>
 
     <div id="welcome-page">
-        <div class="star" style="top: 10%; left: 10%;">🌟</div>
-        <div class="star" style="top: 25%; left: 80%; animation-delay: 1s;">🌟</div>
-        <div class="star" style="top: 70%; left: 5%; animation-delay: 2s;">🌟</div>
-        <div class="star" style="top: 85%; left: 90%; animation-delay: 1.5s;">🌟</div>
+        <div class="star" style="top: 15%; left: 10%;">🌟</div>
+        <div class="star" style="top: 10%; right: 15%; animation-delay: 1s;">🌟</div>
+        <div class="star" style="top: 50%; left: 85%; animation-delay: 2s;">🌟</div>
+        <div class="star" style="top: 75%; left: 15%; animation-delay: 0.5s;">🌟</div>
+        <div class="star" style="top: 40%; left: 5%; animation-delay: 1.5s;">🌟</div>
 
-        <div class="bbq-skewer">
-            <div class="skewer-piece" style="background-image: url('head1.png'); animation-delay: 0s;"></div>
-            <div class="skewer-piece" style="background-image: url('head2.png'); animation-delay: 0.1s;"></div>
-            <div class="skewer-piece" style="background-image: url('head1.png'); animation-delay: 0.2s;"></div>
-            <div class="skewer-piece" style="background-image: url('head2.png'); animation-delay: 0.3s;"></div>
-            <div class="skewer-piece" style="background-image: url('head1.png'); animation-delay: 0.4s;"></div>
-        </div>
+        <div class="skewer-piece" style="background-image: url('head1.png'); top: 20%; left: 20%; animation-delay: 0s;"></div>
+        <div class="skewer-piece" style="background-image: url('head2.png'); top: 35%; right: 15%; animation-delay: 0.3s;"></div>
         
-        <button class="enter-btn" onclick="enterSite()">START our trip</button>
+        <button class="enter-btn" onclick="enterSite()">START</button>
     </div>
 
     <div id="main-content">
         <div class="container">
-            <h1>亲爱的魏依女士 你好(^^)</h1>
+            <h1>我们的友谊纪念馆 ❤️</h1>
             <p>从认识到现在，我们已经一起走过了：</p>
             <div id="timer">加载中...</div>
             <p>“最好的友谊，就是各自忙乱，互相牵挂。”</p>
@@ -109,13 +94,12 @@
     </div>
 
     <script>
-        // 
         function enterSite() {
             document.getElementById('welcome-page').style.transform = 'translateY(-100%)';
         }
 
-        // 
-        const startDate = new Date(2009, 09, 01); //
+        // 设置日期：年，月（从0开始，5月就写4），日
+        const startDate = new Date(2009, 09, 01); 
         setInterval(() => {
             const now = new Date();
             const diff = now - startDate;
