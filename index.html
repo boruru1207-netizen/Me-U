@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>我们的友谊收纳册</title>
+    <style>
+        body { font-family: 'PingFang SC', sans-serif; text-align: center; background: #fff5f5; color: #d63384; }
+        .container { margin-top: 100px; padding: 20px; }
+        h1 { font-size: 3em; }
+        p { font-size: 1.2em; color: #555; }
+        .timer { font-weight: bold; font-size: 2em; margin: 20px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>魏饼之主•鸡公煲狂热爱好者•粉紫色发尾拥有者•身高170+•魏依女士，你好(^^)o</h1>
+        <p>从09年上幼儿园中班到现在，我们已经认识了：</p>
+        <div class="timer" id="timer">加载中...</div>
+        <p>“最好的友谊，就是各自忙乱，互相牵挂。”</p>
+    </div>
+
+    <script>
+        // 2009，09-1，0
+        const startDate = new Date(2022, 4, 20); 
+        setInterval(() => {
+            const now = new Date();
+            const diff = now - startDate;
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            document.getElementById('timer').innerText = days + " 天";
+        }, 1000);
+    </script>
+</body>
+</html>
