@@ -29,12 +29,16 @@
             opacity: 0.95; z-index: 102; pointer-events: none;
         }
 
-        /* 椭圆照片样式：更长更窄 */
+                /* 椭圆照片样式：进一步拉长拉窄 */
         .skewer-piece {
-            position: absolute; width: 120px; height: 220px; 
-            border-radius: 60px; border: 5px solid #fff;
+            position: absolute; 
+            width: 100px;   /* 稍微缩窄一点点 */
+            height: 300px;  /* 显著拉长，从 220px 增加到 300px */
+            border-radius: 80px; /* 调整圆角，保持两头圆润 */
+            border: 5px solid #fff;
             box-shadow: 0 15px 35px rgba(0,0,0,0.3);
-            background-size: cover; background-position: center;
+            background-size: cover; 
+            background-position: center;
             animation: flipBBQ 6s infinite linear;
         }
 
