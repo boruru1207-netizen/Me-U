@@ -4,19 +4,30 @@
     <meta charset="UTF-8">
     <title>Me&U</title>
     <style>
-        /* 基础样式 */
         body, html { margin: 0; padding: 0; height: 100%; overflow: hidden; font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif; background-color: #000; }
 
-        /* --- 启动页样式 --- */
-        #welcome-page {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: url('grass.jpg') no-repeat center center; background-size: cover;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            z-index: 100; transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1);
+        /* 页面容器：用于左右滑动 */
+        #slider {
+            display: flex;
+            width: 300%; /* 三个页面 */
+            height: 100%;
+            transition: transform 0.6s cubic-bezier(0.45, 0.05, 0.55, 0.95);
         }
-        
-        /* 加深网点效果 */
-        #welcome-page::after {
+
+        .page {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* 网点遮罩 */
+        .page::after {
             content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             background-image: radial-gradient(rgba(0,0,0,0.3) 1px, transparent 1.5px);
             background-size: 15px 15px; pointer-events: none;
@@ -27,110 +38,90 @@
             position: absolute; font-size: 3.5em; animation: floatStar 5s infinite ease-in-out;
             opacity: 0.95; z-index: 102; pointer-events: none;
         }
-
-        /* 📝 首页中央文字：加大加粗 */
-        .intro-text {
-            color: white;
-            text-align: center;
-            line-height: 1.8;
-            letter-spacing: 3px;
-            z-index: 103;
-            padding: 0 30px;
-            text-shadow: 0 4px 15px rgba(0,0,0,0.6);
-            animation: fadeInText 3s ease-in-out;
-        }
-
-        .intro-text p {
-            margin: 15px 0;
-            font-size: 2.2em; /* 显著加大 */
-            font-weight: 900; /* 极粗体 */
-            color: white !important;
-        }
-
-        @keyframes fadeInText {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
         @keyframes floatStar {
             0%, 100% { transform: translateY(0) rotate(0deg); }
             50% { transform: translateY(-35px) rotate(20deg); }
         }
 
-        /* 按钮样式：更新文案 */
-        .enter-btn {
-            margin-top: 60px;
-            padding: 15px 50px;
-            background: rgba(255, 255, 255, 0.95); 
-            color: #4a7c44; 
-            border: none;
-            border-radius: 50px; 
-            font-size: 1.4em; 
-            font-weight: bold;
-            cursor: pointer; 
-            box-shadow: 0 10px 25px rgba(0,0,0,0.25);
-            z-index: 105; 
-            transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        /* 📝 文字样式 */
+        .intro-text {
+            color: white; text-align: center; line-height: 1.8; letter-spacing: 3px;
+            z-index: 103; padding: 0 30px; text-shadow: 0 4px 15px rgba(0,0,0,0.6);
         }
-        .enter-btn:hover { transform: scale(1.1); background: white; }
+        .intro-text p { margin: 15px 0; font-size: 2.2em; font-weight: 900; }
 
-        /* --- 内容页样式 (第二页) --- */
+        /* 🔘 左右切换按键 */
+        .nav-btn {
+            position: absolute; top: 50%; transform: translateY(-50%);
+            width: 60px; height: 60px;
+            border: 2px solid white; border-radius: 15px; /* 圆角正方形 */
+            display: flex; align-items: center; justify-content: center;
+            color: white; font-size: 2em; cursor: pointer;
+            z-index: 110; transition: all 0.3s;
+            background: transparent;
+        }
+        .nav-btn:hover { background: rgba(255, 255, 255, 0.3); } /* 30%不透明度填充 */
+        .btn-left { left: 5%; }
+        .btn-right { right: 5%; }
+
+        /* 下方主按钮 */
+        .enter-btn {
+            margin-top: 60px; padding: 15px 50px;
+            background: rgba(255, 255, 255, 0.95); color: #4a7c44;
+            border: none; border-radius: 50px; font-size: 1.4em; font-weight: bold;
+            cursor: pointer; box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+            z-index: 105; transition: 0.3s;
+        }
+        .enter-btn:hover { transform: scale(1.1); }
+
+        /* --- 最后一页 (计时页) --- */
         #main-content {
-            height: 100vh; background: url('bg.jpg') no-repeat center center fixed;
-            background-size: cover; display: flex; align-items: center; justify-content: center;
-            text-align: center;
+            background: url('bg.jpg') no-repeat center center fixed; background-size: cover;
         }
         .container {
-            background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-            padding: 50px 40px; border-radius: 30px; color: white;
-            max-width: 85%;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(12px);
+            padding: 50px 40px; border-radius: 30px; color: white; text-align: center;
         }
-        
-        /* 第二页文案：换行处理 */
-        .main-title { 
-            font-size: 1.8em; 
-            line-height: 1.6; 
-            font-weight: bold; 
-            margin-bottom: 20px;
-        }
+        #timer { font-size: 4em; font-weight: 900; margin: 20px 0; }
+        .quote { font-size: 1.1em; color: black; font-weight: bold; margin-top: 30px; } /* 改为黑色 */
 
-        #timer { 
-            font-size: 4em; 
-            font-weight: 900; 
-            margin: 20px 0; 
-            color: #ffffff; 
-            text-shadow: 0 0 20px rgba(255,255,255,0.4);
-        }
-
-        .quote { font-size: 1.1em; color: #f5f5dc; font-style: italic; opacity: 0.8; margin-top: 30px; }
+        /* 隐藏效果 */
+        .hide-up { transform: translateY(-100%); transition: transform 0.8s ease-in; }
     </style>
 </head>
 <body>
 
-    <div id="welcome-page">
-        <div class="star" style="top: 10%; left: 12%;">🌟</div>
-        <div class="star" style="top: 15%; right: 15%; animation-delay: 1s;">🌟</div>
-        <div class="star" style="top: 55%; left: 85%; animation-delay: 2s;">🌟</div>
-        <div class="star" style="top: 75%; left: 10%; animation-delay: 0.5s;">🌟</div>
-        <div class="star" style="top: 45%; left: 5%; animation-delay: 1.5s;">🌟</div>
+    <div id="slider-container" style="width: 100%; height: 100%; position: relative; transition: transform 0.8s;">
+        <div id="slider">
+            <div class="page" style="background-image: url('grass.jpg');">
+                <div class="star" style="top: 10%; left: 12%;">🌟</div>
+                <div class="nav-btn btn-right" onclick="nextPage()"> > </div>
+                <div class="intro-text">
+                    <p>人和人的遇见</p>
+                    <p>就是一朵小小的涟漪 缓缓地散开</p>
+                    <p>而我总认为 世界上那么多人</p>
+                    <p>能和你相遇就是奇迹</p>
+                    <p>是我生命中最大的一朵涟漪</p>
+                </div>
+                <button class="enter-btn" onclick="finalEnter()">先不要点我哦 ✨</button>
+            </div>
 
-        <div class="intro-text">
-            <p>人和人的遇见</p>
-            <p>就是一朵小小的涟漪 缓缓地散开</p>
-            <p>而我总认为 世界上那么多人</p>
-            <p>能和你相遇就是奇迹</p>
-            <p>是我生命中最大的一朵涟漪</p>
+            <div class="page" style="background-image: url('friends.jpg');">
+                <div class="nav-btn btn-left" onclick="prevPage()"> < </div>
+                <div class="intro-text">
+                    <p>思考了很久给你的二十岁礼物</p>
+                    <p>好像什么都无法纪念你我的十几岁</p>
+                    <p>于是决定用数据和代码来留下回忆</p>
+                </div>
+                <button class="enter-btn" onclick="finalEnter()">也不要按我哦 ✨</button>
+            </div>
         </div>
-        
-        <button class="enter-btn" onclick="enterSite()">先不要点我哦 ✨</button>
     </div>
 
-    <div id="main-content">
+    <div id="main-content" class="page" style="position: fixed; top: 0; left: 0; z-index: 50; display: none;">
         <div class="container">
-            <div class="main-title">
-                从认识到现在<br>
-                我们已经共享了彼此生命中的：
+            <div style="font-size: 1.8em; line-height: 1.6; font-weight: bold; color:white;">
+                从认识到现在<br>我们已经共享了彼此生命中的：
             </div>
             <div id="timer">计算中...</div>
             <p class="quote">“最好的友谊，就是各自忙乱，互相牵挂。”</p>
@@ -138,20 +129,38 @@
     </div>
 
     <script>
-        function enterSite() {
-            document.getElementById('welcome-page').style.transform = 'translateY(-100%)';
+        let currentPos = 0;
+        const slider = document.getElementById('slider');
+        const sliderContainer = document.getElementById('slider-container');
+        const mainContent = document.getElementById('main-content');
+
+        function nextPage() {
+            currentPos = -100;
+            slider.style.transform = `translateX(${currentPos}vw)`;
         }
 
-        // 认识日期：2009年9月1日
+        function prevPage() {
+            currentPos = 0;
+            slider.style.transform = `translateX(${currentPos}vw)`;
+        }
+
+        function finalEnter() {
+            // 向上滑动消失
+            sliderContainer.style.transform = 'translateY(-100%)';
+            // 显示计时页
+            setTimeout(() => {
+                sliderContainer.style.display = 'none';
+                mainContent.style.display = 'flex';
+            }, 800);
+        }
+
         const startDate = new Date(2009, 8, 1); 
-        
         function updateTimer() {
             const now = new Date();
             const diff = now - startDate;
             const days = Math.floor(diff / (1000 * 60 * 60 * 24));
             document.getElementById('timer').innerText = days + " 天";
         }
-
         updateTimer();
         setInterval(updateTimer, 1000);
     </script>
