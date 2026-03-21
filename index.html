@@ -6,30 +6,34 @@
     <style>
         body, html { margin: 0; padding: 0; height: 100%; overflow: hidden; font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif; background-color: #000; }
 
-        /* 🌐 全局导航栏 */
+        /* 🌐 全局导航栏：增加毛玻璃效果 */
         nav {
             position: fixed; top: 0; left: 0; width: 100%; height: 70px;
             display: flex; align-items: center; justify-content: space-between;
             padding: 0 5%; box-sizing: border-box;
-            z-index: 1000; /* 确保在最顶层 */
-            background: transparent; /* 默认隐形 */
-            transition: 0.3s;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.1); /* 默认微弱填充 */
+            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); /* 毛玻璃 */
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .nav-logo {
-            color: white; font-size: 1.6em; font-weight: 900; letter-spacing: 1px;
-        }
+        .nav-logo { color: white; font-size: 1.6em; font-weight: 900; letter-spacing: 1px; }
 
         .nav-links { display: flex; gap: 30px; }
         .nav-item {
             color: white; font-size: 1em; cursor: pointer;
-            transition: 0.3s; opacity: 0.8;
+            transition: 0.3s; opacity: 0.8; font-weight: bold; /* 右侧文字加粗 */
         }
-        .nav-item:hover { opacity: 1; text-shadow: 0 0 10px rgba(255,255,255,0.5); }
+        .nav-item:hover { opacity: 1; text-shadow: 0 0 10px rgba(255,255,255,0.8); }
 
-        /* 页面滑动容器 */
-        #slider-container { width: 100%; height: 100%; position: relative; transition: transform 0.8s; }
-        #slider { display: flex; width: 300vw; height: 100%; transition: transform 0.7s cubic-bezier(0.45, 0.05, 0.55, 0.95); }
+        /* 🔄 循环滑动容器 */
+        #slider-container { width: 100%; height: 100%; position: relative; transition: transform 0.8s ease-in-out; }
+        #slider { 
+            display: flex; 
+            width: 400vw; /* 四个页面 */
+            height: 100%; 
+            transition: transform 0.6s cubic-bezier(0.45, 0.05, 0.55, 0.95); 
+        }
 
         .page {
             width: 100vw; height: 100vh; position: relative;
@@ -37,25 +41,22 @@
             background-size: cover; background-position: center;
         }
 
-        /* 遮罩层 */
         .dot-mask::after {
             content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             background-image: radial-gradient(rgba(0,0,0,0.3) 1px, transparent 1.5px);
             background-size: 15px 15px; pointer-events: none;
         }
 
-        /* 🌟 漂浮的 Emoji (避开顶部) */
-        .star {
-            position: absolute; font-size: 3.5em; animation: floatStar 5s infinite ease-in-out;
-            opacity: 0.95; z-index: 102; pointer-events: none;
+        /* 📝 文字样式：添加阴影 */
+        .intro-text { 
+            color: white; text-align: center; line-height: 1.3; letter-spacing: 2px; z-index: 103; padding: 0 30px;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.8); /* 文字增强阴影 */
         }
-        @keyframes floatStar {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-35px) rotate(20deg); }
-        }
-
-        .intro-text { color: white; text-align: center; line-height: 1.3; letter-spacing: 2px; z-index: 103; padding: 0 30px; }
         .intro-text p { margin: 8px 0; font-size: 2.2em; font-weight: 900; }
+
+        /* 🌟 漂浮的 Emoji */
+        .star { position: absolute; font-size: 3.5em; animation: floatStar 5s infinite ease-in-out; opacity: 0.95; z-index: 102; pointer-events: none; }
+        @keyframes floatStar { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-35px) rotate(20deg); } }
 
         /* 🔘 左右按键 */
         .nav-btn {
@@ -71,17 +72,17 @@
         .enter-btn {
             margin-top: 50px; padding: 15px 50px; background: rgba(255, 255, 255, 0.95); 
             color: #4a7c44; border: none; border-radius: 50px; font-size: 1.4em; font-weight: bold;
-            cursor: pointer; z-index: 105; transition: 0.3s;
+            cursor: pointer; z-index: 105; transition: 0.3s; box-shadow: 0 10px 25px rgba(0,0,0,0.2);
         }
 
-        /* 最后一页 */
+        /* 🏁 倒计时页 */
         #main-content {
             background: url('bg.jpg') no-repeat center center fixed; background-size: cover;
-            display: none; position: fixed; top: 0; left: 0; z-index: 200; width: 100vw; height: 100vh;
+            display: none; position: fixed; top: 0; left: 0; z-index: 2000; width: 100vw; height: 100vh;
         }
         .container {
-            background: rgba(255, 255, 255, 0.4); backdrop-filter: blur(15px);
-            padding: 60px 50px; border-radius: 30px; text-align: center;
+            background: rgba(255, 255, 255, 0.4); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            padding: 60px 50px; border-radius: 30px; text-align: center; border: 1px solid rgba(255, 255, 255, 0.3);
         }
         #timer { font-size: 4.5em; font-weight: 900; margin: 20px 0; color: #fff; }
         .quote { font-size: 1.2em; color: black; font-weight: bold; margin-top: 30px; }
@@ -94,7 +95,7 @@
     <nav>
         <div class="nav-logo">Me&U</div>
         <div class="nav-links">
-            <div class="nav-item">计时</div>
+            <div class="nav-item" onclick="finalEnter()">计时</div>
             <div class="nav-item">关于我们</div>
             <div class="nav-item">我眼中的魏依</div>
             <div class="nav-item">写给你和我</div>
@@ -105,7 +106,8 @@
     <div id="slider-container">
         <div id="slider">
             <div class="page dot-mask" style="background-image: url('grass.jpg');">
-                <div class="star" style="top: 20%; left: 12%;">🌟</div> <div class="nav-btn btn-right" onclick="moveSlider(-100)"> > </div>
+                <div class="star" style="top: 25%; left: 10%;">🌟</div>
+                <div class="nav-btn btn-left" onclick="moveSlider(3)"> < </div> <div class="nav-btn btn-right" onclick="moveSlider(1)"> > </div>
                 <div class="intro-text">
                     <p>人和人的遇见</p>
                     <p>就是一朵小小的涟漪 缓缓地散开</p>
@@ -118,7 +120,7 @@
 
             <div class="page dot-mask" style="background-image: url('friends.jpg');">
                 <div class="nav-btn btn-left" onclick="moveSlider(0)"> < </div>
-                <div class="nav-btn btn-right" onclick="moveSlider(-200)"> > </div>
+                <div class="nav-btn btn-right" onclick="moveSlider(2)"> > </div>
                 <div class="intro-text">
                     <p>思考了很久给你的二十岁礼物</p>
                     <p>好像什么都无法纪念你我的十几岁</p>
@@ -128,14 +130,24 @@
             </div>
 
             <div class="page dot-mask" style="background-image: url('heart.jpg');">
-                <div class="star" style="top: 25%; right: 10%;">🌟</div>
-                <div class="nav-btn btn-left" onclick="moveSlider(-100)"> < </div>
+                <div class="nav-btn btn-left" onclick="moveSlider(1)"> < </div>
+                <div class="nav-btn btn-right" onclick="moveSlider(3)"> > </div>
                 <div class="intro-text">
                     <p>所以这个网站就这样诞生了！</p>
                     <p>这是只属于魏依和刘若茜的一个网站</p>
                     <p>在这个互联网的时代下会一直存在(⁎⁍̴̛ᴗ⁍̴̛⁎)</p>
                 </div>
                 <button class="enter-btn" onclick="finalEnter()">别着急点我哦 ✨</button>
+            </div>
+
+            <div class="page dot-mask" style="background-image: url('cake.jpg');">
+                <div class="nav-btn btn-left" onclick="moveSlider(2)"> < </div>
+                <div class="nav-btn btn-right" onclick="moveSlider(0)"> > </div> <div class="intro-text">
+                    <p>亲爱的魏依女士：</p>
+                    <p>20岁生日快乐</p>
+                    <p>拥有最意气风发心想事成的二十代</p>
+                </div>
+                <button class="enter-btn" onclick="finalEnter()">请严肃点击我！✨</button>
             </div>
         </div>
     </div>
@@ -145,18 +157,19 @@
             <div style="font-size: 1.8em; line-height: 1.5; font-weight: bold; color:white;">
                 从认识到现在<br>我们已经共享了彼此生命中的：
             </div>
-            <div id="timer">加载中...</div>
+            <div id="timer">计算中...</div>
             <p class="quote">“最好的友谊，就是各自忙乱，互相牵挂。”</p>
         </div>
     </div>
 
     <script>
-        function moveSlider(percentage) {
-            document.getElementById('slider').style.transform = `translateX(${percentage}vw)`;
+        function moveSlider(index) {
+            document.getElementById('slider').style.transform = `translateX(-${index * 100}vw)`;
         }
 
         function finalEnter() {
             document.getElementById('slider-container').classList.add('hide-up');
+            // 确保导航栏也在计时页显示
             setTimeout(() => {
                 document.getElementById('slider-container').style.display = 'none';
                 document.getElementById('main-content').style.display = 'flex';
