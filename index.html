@@ -10,80 +10,67 @@
         nav {
             position: fixed; top: 0; left: 0; width: 100%; height: 70px;
             display: flex; align-items: center; justify-content: space-between;
-            padding: 0 5%; box-sizing: border-box; z-index: 5000; /* 提升层级，确保在计时页之上 */
+            padding: 0 5%; box-sizing: border-box; z-index: 5000;
             background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.5s ease;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1); transition: all 0.5s ease;
         }
-        
-        /* 黑色模式导航栏样式 */
-        nav.black-mode { 
-            color: #000 !important; 
-            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-            background: rgba(0, 0, 0, 0.05);
-        }
+        nav.black-mode { color: #000 !important; background: rgba(0, 0, 0, 0.05); border-bottom: 1px solid rgba(0, 0, 0, 0.1); }
         nav.black-mode .nav-logo, nav.black-mode .nav-item { color: #000 !important; }
-
-        .nav-logo { color: white; font-size: 1.6em; font-weight: 900; transition: color 0.5s; }
+        .nav-logo { color: white; font-size: 1.6em; font-weight: 900; }
         .nav-links { display: flex; gap: 20px; }
         .nav-item { color: white; font-size: 0.9em; cursor: pointer; transition: 0.3s; font-weight: bold; opacity: 0.8; }
         .nav-item:hover { opacity: 1; text-shadow: 0 0 8px rgba(255,255,255,0.8); }
 
         /* 🏗️ 纵向滚动容器 */
-        #main-wrapper {
-            height: 100vh; width: 100vw; transition: transform 0.8s cubic-bezier(0.65, 0, 0.35, 1);
-        }
+        #main-wrapper { height: 100vh; width: 100vw; transition: transform 0.8s cubic-bezier(0.65, 0, 0.35, 1); }
 
-        /* 第一层：横向滑动封面层 */
+        /* --- 第一层：横向封面 --- */
         .section-home { height: 100vh; width: 100vw; overflow: hidden; position: relative; }
         #slider { display: flex; width: 400vw; height: 100%; transition: transform 0.6s ease-in-out; }
         .page { width: 100vw; height: 100%; position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; background-size: cover; background-position: center; }
         .dot-mask::after { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: radial-gradient(rgba(0,0,0,0.3) 1px, transparent 1.5px); background-size: 15px 15px; pointer-events: none; }
-        .intro-text { color: white; text-align: center; line-height: 1.3; z-index: 103; text-shadow: 0 4px 20px rgba(0,0,0,0.8); }
-        .intro-text p { margin: 8px 0; font-size: 2.2em; font-weight: 900; }
-
-        /* 🔘 左右按键 */
+        .intro-text { color: white; text-align: center; line-height: 1.3; z-index: 103; text-shadow: 0 4px 20px rgba(0,0,0,0.9); }
+        .intro-text p { margin: 8px 0; font-size: 2.2em; font-weight: 900; white-space: pre-line; }
+        
         .nav-btn { position: absolute; top: 50%; width: 50px; height: 50px; border: 2px solid white; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.8em; cursor: pointer; z-index: 110; transition: 0.3s; }
         .nav-btn:hover { background: rgba(255,255,255,0.3); }
         .btn-left { left: 3%; } .btn-right { right: 3%; }
-
         .enter-btn { margin-top: 50px; padding: 15px 50px; background: white; color: #4a7c44; border: none; border-radius: 50px; font-size: 1.2em; font-weight: bold; cursor: pointer; z-index: 105; transition: 0.3s; }
 
-        /* 第二层：关于我们内容层 */
-        .section-about { 
-            height: 100vh; width: 100vw; background-color: #f2f2f2; 
-            display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative;
-        }
-        .about-header { text-align: center; margin-bottom: 40px; }
-        .about-header h1 { font-size: 2.5em; color: #000; margin-bottom: 10px; }
+        /* --- 纵向提示小字 --- */
+        .scroll-hint { position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); color: #888; font-size: 1em; }
+        .white-hint { color: rgba(255,255,255,0.6); }
+
+        /* --- 第二层：计时器 --- */
+        .section-timer { height: 100vh; background: url('bg.jpg') center/cover; display: flex; align-items: center; justify-content: center; position: relative; }
+        .timer-container { background: rgba(255,255,255,0.4); backdrop-filter: blur(15px); padding: 50px; border-radius: 30px; text-align: center; width: 70%; }
+
+        /* --- 第三/四层：白底板块 --- */
+        .section-content { height: 100vh; background-color: #f2f2f2; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; }
+        .content-header { text-align: center; margin-bottom: 30px; }
+        .content-header h1 { font-size: 2.5em; color: #000; margin-bottom: 10px; }
         .green-line { width: 60px; height: 4px; background: #4a7c44; margin: 0 auto 15px; }
-        .about-header p, .scroll-hint { color: #888; font-size: 1em; } /* 统一提示语格式 */
+        .content-header p { color: #888; font-size: 1em; }
         
-        .scroll-hint { position: absolute; bottom: 40px; font-style: normal; }
-
-        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; width: 80%; max-width: 1000px; }
-        .about-card { 
-            background: white; padding: 25px; border-radius: 15px; display: flex; align-items: flex-start; gap: 15px;
-            cursor: pointer; transition: all 0.2s; box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-        }
-        .about-card:hover { transform: translateY(4px); box-shadow: inset 0 4px 8px rgba(0,0,0,0.1); }
-        .card-icon { font-size: 1.2em; }
+        .grid-layout { display: grid; gap: 20px; width: 85%; max-width: 1100px; }
+        .about-grid { grid-template-columns: 1fr 1fr; }
+        .wei-grid { grid-template-columns: 1fr 1fr 1fr; }
+        
+        .card { background: white; padding: 20px; border-radius: 15px; display: flex; align-items: flex-start; gap: 12px; cursor: pointer; transition: all 0.2s; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        .card:hover { transform: translateY(4px); box-shadow: inset 0 4px 8px rgba(0,0,0,0.1); }
         .card-title { font-weight: bold; font-size: 1.1em; color: #000; margin-bottom: 5px; }
-        .card-desc { color: #666; font-size: 0.9em; line-height: 1.4; }
+        .card-desc { color: #666; font-size: 0.85em; line-height: 1.4; }
 
-        /* 🏁 计时页 (全屏显示) */
-        #timer-page { 
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            background: url('bg.jpg') center/cover; 
-            display: none; z-index: 4000; 
-            align-items: center; justify-content: center; 
-        }
-        .timer-container { background: rgba(255,255,255,0.4); backdrop-filter: blur(15px); padding: 50px; border-radius: 30px; text-align: center; width: 80%; }
-        
-        /* 🖼️ 图片弹窗 */
-        .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); display: none; z-index: 6000; justify-content: center; align-items: center; }
-        .overlay img { max-width: 80%; max-height: 80%; border-radius: 10px; }
-        .close-btn { position: absolute; top: 5%; right: 5%; width: 50px; height: 50px; border: 2px solid white; border-radius: 12px; color: white; display: flex; align-items: center; justify-content: center; font-size: 1.5em; cursor: pointer; }
+        /* 🖼️ 弹窗容器 */
+        .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); display: none; z-index: 6000; justify-content: center; align-items: center; }
+        .modal-rect { background: white; width: 700px; padding: 40px; border-radius: 20px; display: flex; align-items: center; justify-content: space-between; position: relative; }
+        .modal-text { width: 55%; font-size: 1.4em; font-weight: bold; color: #000; line-height: 1.5; white-space: pre-line; }
+        .modal-img { width: 40%; border-radius: 10px; }
+        .close-btn { position: absolute; top: 15px; right: 20px; font-size: 1.5em; cursor: pointer; color: #999; }
+        .img-only { max-width: 80%; max-height: 80%; border-radius: 10px; }
+
+        /* 特殊文字样式 */
+        .nantong-style { color: red; text-shadow: 2px 2px 0px black; font-weight: 900; }
     </style>
 </head>
 <body>
@@ -91,10 +78,10 @@
     <nav id="top-nav">
         <div class="nav-logo">Me&U</div>
         <div class="nav-links">
-            <div class="nav-item" onclick="goHome()">主页</div>
-            <div class="nav-item" onclick="finalEnter()">计时</div>
-            <div class="nav-item" onclick="goAbout()">关于我们</div>
-            <div class="nav-item">我眼中的魏依</div>
+            <div class="nav-item" onclick="scrollToPage(0)">主页</div>
+            <div class="nav-item" onclick="scrollToPage(1)">计时</div>
+            <div class="nav-item" onclick="scrollToPage(2)">关于我们</div>
+            <div class="nav-item" onclick="scrollToPage(3)">我眼中的魏依</div>
             <div class="nav-item">写给你和我</div>
             <div class="nav-item">我们的未来</div>
         </div>
@@ -107,122 +94,186 @@
                     <div class="nav-btn btn-left" onclick="moveSlider(3)"> < </div>
                     <div class="nav-btn btn-right" onclick="moveSlider(1)"> > </div>
                     <div class="intro-text">
-                        <p>人和人的遇见</p>
-                        <p>就是一朵小小的涟漪 缓缓地散开</p>
-                        <p>是我生命中最大的一朵涟漪</p>
+                        <p>人和人的遇见
+                        就是一朵小小的涟漪 缓缓地散开
+                        而我总认为 世界上那么多人
+                        能和你相遇就是奇迹
+                        是我生命中最大的一朵涟漪</p>
                     </div>
-                    <button class="enter-btn" onclick="goAbout()">先不要点我哦 ✨</button>
+                    <button class="enter-btn" onclick="autoScroll()">先不要点我哦 ✨</button>
                 </div>
                 <div class="page dot-mask" style="background-image: url('friends.jpg');">
                     <div class="nav-btn btn-left" onclick="moveSlider(0)"> < </div>
                     <div class="nav-btn btn-right" onclick="moveSlider(2)"> > </div>
-                    <div class="intro-text"><p>思考了很久给你的二十岁礼物</p><p>于是决定用数据和代码来留下回忆</p></div>
-                    <button class="enter-btn" onclick="goAbout()">也不要按我哦 ✨</button>
+                    <div class="intro-text">
+                        <p>思考了很久给你的二十岁礼物
+                        好像什么都无法纪念你我的十几岁
+                        犹豫再三我决定用数据和代码来写下我们的记忆</p>
+                    </div>
+                    <button class="enter-btn" onclick="autoScroll()">也不要按我哦 ✨</button>
                 </div>
                 <div class="page dot-mask" style="background-image: url('heart.jpg');">
                     <div class="nav-btn btn-left" onclick="moveSlider(1)"> < </div>
                     <div class="nav-btn btn-right" onclick="moveSlider(3)"> > </div>
-                    <div class="intro-text"><p>这是只属于魏依和刘若茜的一个网站</p><p>在这个互联网的时代下会一直存在(⁎⁍̴̛ᴗ⁍̴̛⁎)</p></div>
-                    <button class="enter-btn" onclick="goAbout()">别着急点我哦 ✨</button>
+                    <div class="intro-text">
+                        <p>于是这个网站就这样诞生了！
+                        这是只属于我和你的一个小小世界
+                        在这个互联网的时代 不论发生什么 它都会一直存在(⁎⁍̴̛ᴗ⁍̴̛⁎)</p>
+                    </div>
+                    <button class="enter-btn" onclick="autoScroll()">别着急点我哦 ✨</button>
                 </div>
                 <div class="page dot-mask" style="background-image: url('cake.jpg');">
                     <div class="nav-btn btn-left" onclick="moveSlider(2)"> < </div>
                     <div class="nav-btn btn-right" onclick="moveSlider(0)"> > </div>
-                    <div class="intro-text"><p>亲爱的魏依女士：</p><p>20岁生日快乐</p></div>
-                    <button class="enter-btn" onclick="goAbout()">请严肃点击我！✨</button>
+                    <div class="intro-text">
+                        <p>亲爱的魏依女士：
+                        20岁生日快乐🎂
+                        祝你拥有最意气风发和心想事成的二十代</p>
+                    </div>
+                    <button class="enter-btn" onclick="autoScroll()">请严肃点击我！✨</button>
                 </div>
             </div>
         </section>
 
-        <section class="section-about" id="about-section">
-            <div class="about-header">
+        <section class="section-timer">
+            <div class="timer-container">
+                <h2 style="color:white; font-size:2.2em; font-weight:900;">从认识到现在<br>我们已经共享了彼此生命中的：</h2>
+                <div id="timer" style="font-size: 5.5em; font-weight: 900; color: white; margin: 20px 0;"></div>
+                <p style="color:black; font-weight:bold; font-size:1.2em;">“最好的友谊，就是各自忙乱，互相牵挂。”</p>
+            </div>
+            <div class="scroll-hint white-hint">（上下滑动可切换页面）</div>
+        </section>
+
+        <section class="section-content">
+            <div class="content-header">
                 <h1>关于我们</h1>
                 <div class="green-line"></div>
-                <p id="about-sub">追溯过去的记忆，我们走过的每一步。</p>
+                <p>追溯过去的记忆，我们走过的每一步。</p>
             </div>
-            <div class="about-grid">
-                <div class="about-card" onclick="openPhoto('01.jpg')">
+            <div class="grid-layout about-grid">
+                <div class="card" onclick="openFullImg('01.jpg')">
                     <div class="card-icon">🌟</div>
                     <div><div class="card-title">2009-2017</div><div class="card-desc">幼儿园到小学的童年时光</div></div>
                 </div>
-                <div class="about-card" onclick="openPhoto('02.jpg')">
+                <div class="card" onclick="openFullImg('02.jpg')">
                     <div class="card-icon">🌟</div>
-                    <div><div class="card-title">2017-2020</div><div class="card-desc">陌生环境下真正熟悉的三年</div></div>
+                    <div><div class="card-title">2017-2020</div><div class="card-desc">陌生环境下真正熟悉的三年，经历了好多好多</div></div>
                 </div>
-                <div class="about-card" onclick="openPhoto('03.jpg')">
+                <div class="card" onclick="openFullImg('03.jpg')">
                     <div class="card-icon">🌟</div>
-                    <div><div class="card-title">2020-2023</div><div class="card-desc">相互鼓励相互陪伴的高中</div></div>
+                    <div><div class="card-title">2020-2023</div><div class="card-desc">忙碌但充满幸福的高中，相互鼓励相互陪伴，难以忘记</div></div>
                 </div>
-                <div class="about-card" onclick="openPhoto('04.jpg')">
+                <div class="card" onclick="openFullImg('04.jpg')">
                     <div class="card-icon">🌟</div>
-                    <div><div class="card-title">2023-至今</div><div class="card-desc">我相信仍然会是很好的延续</div></div>
+                    <div><div class="card-title">2023-至今</div><div class="card-desc">充满不确定与挑战，但我相信仍然会是很好的延续</div></div>
+                </div>
+            </div>
+            <div class="scroll-hint">（上下滑动可切换页面）</div>
+        </section>
+
+        <section class="section-content">
+            <div class="content-header">
+                <h1>我眼中的魏依</h1>
+                <div class="green-line"></div>
+                <p>谢谢你成为了我的几分之几。真诚的点点滴滴我永远看在眼里。</p>
+            </div>
+            <div class="grid-layout wei-grid">
+                <div class="card" onclick="openComplex('登上人民网的魏女士\n向你致敬！', '11.jpg')">
+                    <div class="card-icon">🪄</div>
+                    <div><div class="card-title">认真</div><div class="card-desc">不管嘴上如何说，实际上对人对事都十分认真，会做好份内的事情</div></div>
+                </div>
+                <div class="card" onclick="openComplex('飒！是一种格局宽阔无边，\n飒！是一种速度遥遥领先，\n飒！是一种境界天外有天，\n飒！是一种气质风迷万千！！！', '12.jpg')">
+                    <div class="card-icon">🪄</div>
+                    <div><div class="card-title">飒！</div><div class="card-desc">好帅。(这句话虽然只有短短的两个字，却透露出一丝寒冷与漫不经心的从容结尾的句号充分体现了本人高贵优雅的气质)</div></div>
+                </div>
+                <div class="card" onclick="openComplex('对身边人情绪关怀面面俱到，e之e之', '13.jpg')">
+                    <div class="card-icon">🪄</div>
+                    <div><div class="card-title">情绪价值の神</div><div class="card-desc">总能给予身边人情绪价值，超级大e人</div></div>
+                </div>
+                <div class="card" onclick="openComplex('真正的“想一出是一出”，我就不一样了，我是“想一出但出不了”.jpg', '14.jpg')">
+                    <div class="card-icon">🪄</div>
+                    <div><div class="card-title">行动力强</div><div class="card-desc">超强实践派，高行动力的理想主义者！</div></div>
+                </div>
+                <div class="card" onclick="openNantong()">
+                    <div class="card-icon">🪄</div>
+                    <div><div class="card-title">持之以恒</div><div class="card-desc">认定了什么就会坚持到底，非常专注</div></div>
+                </div>
+                <div class="card" onclick="openFullImg('16.jpg')">
+                    <div class="card-icon">🪄</div>
+                    <div><div class="card-title">比格•魔丸•吉娃娃•尖嘴跳蚤</div><div class="card-desc">时神时魔时人大部分是魔。</div></div>
                 </div>
             </div>
             <div class="scroll-hint">（上下滑动可切换页面）</div>
         </section>
     </div>
 
-    <div id="photo-overlay" class="overlay">
-        <div class="close-btn" onclick="closePhoto()">x</div>
-        <img id="pop-img" src="">
-    </div>
-
-    <div id="timer-page">
-        <div class="timer-container">
-            <h2 style="color:white; font-size:2em;">从认识到现在，已经共享了：</h2>
-            <div id="timer" style="font-size: 5em; font-weight: 900; color: white; margin: 20px 0;"></div>
-            <p style="color:black; font-weight:bold;">“最好的友谊，就是各自忙乱，互相牵挂。”</p>
+    <div id="complex-overlay" class="overlay">
+        <div class="modal-rect">
+            <div class="close-btn" onclick="closeOverlay()">x</div>
+            <div id="modal-text-div" class="modal-text"></div>
+            <img id="modal-img-tag" class="modal-img" src="">
         </div>
+    </div>
+    <div id="img-overlay" class="overlay">
+        <div class="close-btn" onclick="closeOverlay()" style="color:white; top:5%; right:5%;">x</div>
+        <img id="pop-img-only" class="img-only" src="">
     </div>
 
     <script>
         const wrapper = document.getElementById('main-wrapper');
         const nav = document.getElementById('top-nav');
-        const timerPage = document.getElementById('timer-page');
+        let curPage = 0;
+
+        function scrollToPage(index) {
+            curPage = index;
+            wrapper.style.transform = `translateY(-${index * 100}vh)`;
+            nav.style.display = 'flex'; 
+            nav.className = (index === 2 || index === 3) ? 'black-mode' : '';
+        }
+
+        function autoScroll() {
+            curPage = 1;
+            wrapper.style.transform = 'translateY(-100vh)';
+            nav.style.display = 'none'; // 按键跳转隐藏导航栏
+        }
 
         function moveSlider(index) {
             document.getElementById('slider').style.transform = `translateX(-${index * 100}vw)`;
         }
 
-        function goHome() {
-            wrapper.style.transform = 'translateY(0)';
-            timerPage.style.display = 'none';
-            nav.classList.remove('black-mode'); // 恢复白色导航
+        function openComplex(text, img) {
+            document.getElementById('modal-text-div').innerText = text;
+            document.getElementById('modal-img-tag').src = img;
+            document.getElementById('complex-overlay').style.display = 'flex';
         }
 
-        function goAbout() {
-            wrapper.style.transform = 'translateY(-100%)';
-            timerPage.style.display = 'none';
-            nav.classList.add('black-mode'); // 切换黑色导航
+        function openNantong() {
+            const textDiv = document.getElementById('modal-text-div');
+            textDiv.innerHTML = '看<span class="nantong-style">男同</span>也持之以恒呢。';
+            document.getElementById('modal-img-tag').src = '15.jpg';
+            document.getElementById('complex-overlay').style.display = 'flex';
         }
 
-        function finalEnter() {
-            timerPage.style.display = 'flex';
-            nav.classList.remove('black-mode'); // 计时页恢复白色导航
+        function openFullImg(src) {
+            document.getElementById('pop-img-only').src = src;
+            document.getElementById('img-overlay').style.display = 'flex';
         }
 
-        function openPhoto(src) {
-            document.getElementById('pop-img').src = src;
-            document.getElementById('photo-overlay').style.display = 'flex';
+        function closeOverlay() {
+            document.getElementById('complex-overlay').style.display = 'none';
+            document.getElementById('img-overlay').style.display = 'none';
         }
 
-        function closePhoto() {
-            document.getElementById('photo-overlay').style.display = 'none';
-        }
-
-        // 计时器逻辑
-        const startDate = new Date(2009, 8, 1); 
+        const startDate = new Date(2009, 8, 1);
         setInterval(() => {
             const now = new Date();
             const diff = now - startDate;
             document.getElementById('timer').innerText = Math.floor(diff / (1000 * 60 * 60 * 24)) + " 天";
         }, 1000);
 
-        // 滚轮监听
         window.addEventListener('wheel', (e) => {
-            if (timerPage.style.display === 'flex') return; // 计时页状态不触发滚动切换
-            if (e.deltaY > 0) goAbout();
-            else goHome();
+            if (e.deltaY > 50 && curPage < 3) scrollToPage(curPage + 1);
+            if (e.deltaY < -50 && curPage > 0) scrollToPage(curPage - 1);
         });
     </script>
 </body>
