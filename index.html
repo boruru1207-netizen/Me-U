@@ -24,54 +24,55 @@
 
         /* 🌟 漂浮的 Emoji */
         .star {
-            position: absolute; font-size: 3em; animation: floatStar 5s infinite ease-in-out;
-            opacity: 0.9; z-index: 102; pointer-events: none;
+            position: absolute; font-size: 3.5em; animation: floatStar 5s infinite ease-in-out;
+            opacity: 0.95; z-index: 102; pointer-events: none;
         }
 
-        /* 📝 中央文字样式 */
+        /* 📝 首页中央文字：加大加粗 */
         .intro-text {
             color: white;
             text-align: center;
-            line-height: 2;
-            letter-spacing: 2px;
+            line-height: 1.8;
+            letter-spacing: 3px;
             z-index: 103;
-            padding: 0 20px;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+            padding: 0 30px;
+            text-shadow: 0 4px 15px rgba(0,0,0,0.6);
             animation: fadeInText 3s ease-in-out;
         }
 
         .intro-text p {
-            margin: 10px 0;
-            font-size: 1.4em;
+            margin: 15px 0;
+            font-size: 2.2em; /* 显著加大 */
+            font-weight: 900; /* 极粗体 */
             color: white !important;
         }
 
         @keyframes fadeInText {
-            from { opacity: 0; transform: translateY(10px); }
+            from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
         @keyframes floatStar {
             0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-30px) rotate(15deg); }
+            50% { transform: translateY(-35px) rotate(20deg); }
         }
 
-        /* 按钮样式 */
+        /* 按钮样式：更新文案 */
         .enter-btn {
-            margin-top: 50px;
-            padding: 12px 45px;
-            background: rgba(255, 255, 255, 0.9); 
+            margin-top: 60px;
+            padding: 15px 50px;
+            background: rgba(255, 255, 255, 0.95); 
             color: #4a7c44; 
             border: none;
             border-radius: 50px; 
-            font-size: 1.2em; 
+            font-size: 1.4em; 
             font-weight: bold;
             cursor: pointer; 
-            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.25);
             z-index: 105; 
-            transition: 0.3s;
+            transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
-        .enter-btn:hover { transform: scale(1.05); background: white; }
+        .enter-btn:hover { transform: scale(1.1); background: white; }
 
         /* --- 内容页样式 (第二页) --- */
         #main-content {
@@ -80,39 +81,59 @@
             text-align: center;
         }
         .container {
-            background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-            padding: 40px; border-radius: 20px; color: white;
-            max-width: 80%;
+            background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            padding: 50px 40px; border-radius: 30px; color: white;
+            max-width: 85%;
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
-        h1 { font-size: 2.8em; margin: 0; font-weight: 500; }
-        #timer { font-size: 3.5em; font-weight: bold; margin: 25px 0; color: #ffffff; }
-        .sub-text { font-size: 1.2em; color: #f5f5dc; letter-spacing: 1px; }
+        
+        /* 第二页文案：换行处理 */
+        .main-title { 
+            font-size: 1.8em; 
+            line-height: 1.6; 
+            font-weight: bold; 
+            margin-bottom: 20px;
+        }
+
+        #timer { 
+            font-size: 4em; 
+            font-weight: 900; 
+            margin: 20px 0; 
+            color: #ffffff; 
+            text-shadow: 0 0 20px rgba(255,255,255,0.4);
+        }
+
+        .quote { font-size: 1.1em; color: #f5f5dc; font-style: italic; opacity: 0.8; margin-top: 30px; }
     </style>
 </head>
 <body>
 
     <div id="welcome-page">
-        <div class="star" style="top: 10%; left: 15%;">🌟</div>
-        <div class="star" style="top: 15%; right: 10%; animation-delay: 1s;">🌟</div>
-        <div class="star" style="top: 55%; left: 80%; animation-delay: 2s;">🌟</div>
-        <div class="star" style="top: 80%; left: 10%; animation-delay: 0.5s;">🌟</div>
-        <div class="star" style="top: 40%; left: 5%; animation-delay: 1.5s;">🌟</div>
+        <div class="star" style="top: 10%; left: 12%;">🌟</div>
+        <div class="star" style="top: 15%; right: 15%; animation-delay: 1s;">🌟</div>
+        <div class="star" style="top: 55%; left: 85%; animation-delay: 2s;">🌟</div>
+        <div class="star" style="top: 75%; left: 10%; animation-delay: 0.5s;">🌟</div>
+        <div class="star" style="top: 45%; left: 5%; animation-delay: 1.5s;">🌟</div>
 
         <div class="intro-text">
-            <p>人和人的遇见 就是一朵小小的涟漪 缓缓地散开</p>
-            <p>而我总认为 世界上那么多人 能和你相遇就是奇迹</p>
+            <p>人和人的遇见</p>
+            <p>就是一朵小小的涟漪 缓缓地散开</p>
+            <p>而我总认为 世界上那么多人</p>
+            <p>能和你相遇就是奇迹</p>
             <p>是我生命中最大的一朵涟漪</p>
         </div>
         
-        <button class="enter-btn" onclick="enterSite()">开启友谊手册 ✨</button>
+        <button class="enter-btn" onclick="enterSite()">先不要点我哦 ✨</button>
     </div>
 
     <div id="main-content">
         <div class="container">
-            <h1>从认识到现在</h1>
+            <div class="main-title">
+                从认识到现在<br>
+                我们已经共享了彼此生命中的：
+            </div>
             <div id="timer">计算中...</div>
-            <p class="sub-text">我们共享了彼此生命中的</p>
-            <p class="sub-text" style="margin-top: 20px; font-style: italic; opacity: 0.8;">“最好的友谊，就是各自忙乱，互相牵挂。”</p>
+            <p class="quote">“最好的友谊，就是各自忙乱，互相牵挂。”</p>
         </div>
     </div>
 
@@ -122,7 +143,6 @@
         }
 
         // 认识日期：2009年9月1日
-        // 注意：JavaScript中月份是从0开始的，所以9月要写成 8
         const startDate = new Date(2009, 8, 1); 
         
         function updateTimer() {
