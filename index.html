@@ -5,15 +5,14 @@
     <title>Me&U</title>
     <style>
         /* 基础样式 */
-        body, html { margin: 0; padding: 0; height: 100%; overflow: hidden; font-family: 'PingFang SC', sans-serif; background-color: #000; }
+        body, html { margin: 0; padding: 0; height: 100%; overflow: hidden; font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif; background-color: #000; }
 
         /* --- 启动页样式 --- */
         #welcome-page {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: url('grass.jpg') no-repeat center center; background-size: cover;
-            display: flex; align-items: center; justify-content: center;
-            z-index: 100; transition: transform 0.8s ease-in-out;
-            perspective: 1000px;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            z-index: 100; transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
         /* 加深网点效果 */
@@ -23,41 +22,56 @@
             background-size: 15px 15px; pointer-events: none;
         }
 
-        /* 🌟 漂浮的 Emoji：调大尺寸和不透明度 */
+        /* 🌟 漂浮的 Emoji */
         .star {
-            position: absolute; font-size: 3.5em; animation: floatStar 5s infinite ease-in-out;
-            opacity: 0.95; z-index: 102; pointer-events: none;
+            position: absolute; font-size: 3em; animation: floatStar 5s infinite ease-in-out;
+            opacity: 0.9; z-index: 102; pointer-events: none;
         }
 
-                /* 椭圆照片样式：进一步拉长拉窄 */
-        .skewer-piece {
-            position: absolute; 
-            width: 100px;   /* 稍微缩窄一点点 */
-            height: 300px;  /* 显著拉长，从 220px 增加到 300px */
-            border-radius: 80px; /* 调整圆角，保持两头圆润 */
-            border: 5px solid #fff;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
-            background-size: cover; 
-            background-position: center;
-            animation: flipBBQ 6s infinite linear;
+        /* 📝 中央文字样式 */
+        .intro-text {
+            color: white;
+            text-align: center;
+            line-height: 2;
+            letter-spacing: 2px;
+            z-index: 103;
+            padding: 0 20px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+            animation: fadeInText 3s ease-in-out;
         }
 
-        /* 动画：烤串翻转和星星漂浮 */
-        @keyframes flipBBQ { 0% { transform: rotateX(0deg); } 100% { transform: rotateX(360deg); } }
+        .intro-text p {
+            margin: 10px 0;
+            font-size: 1.4em;
+            color: white !important;
+        }
+
+        @keyframes fadeInText {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
         @keyframes floatStar {
             0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-40px) rotate(20deg); }
+            50% { transform: translateY(-30px) rotate(15deg); }
         }
 
         /* 按钮样式 */
         .enter-btn {
-            position: absolute; bottom: 15%; padding: 15px 40px;
-            background: #ffffff; color: #4a7c44; border: none;
-            border-radius: 50px; font-size: 1.3em; font-weight: bold;
-            cursor: pointer; box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-            z-index: 105; transition: 0.3s;
+            margin-top: 50px;
+            padding: 12px 45px;
+            background: rgba(255, 255, 255, 0.9); 
+            color: #4a7c44; 
+            border: none;
+            border-radius: 50px; 
+            font-size: 1.2em; 
+            font-weight: bold;
+            cursor: pointer; 
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            z-index: 105; 
+            transition: 0.3s;
         }
-        .enter-btn:hover { transform: scale(1.1) translateY(-5px); }
+        .enter-btn:hover { transform: scale(1.05); background: white; }
 
         /* --- 内容页样式 (第二页) --- */
         #main-content {
@@ -67,33 +81,38 @@
         }
         .container {
             background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-            padding: 40px; border-radius: 20px; color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            padding: 40px; border-radius: 20px; color: white;
+            max-width: 80%;
         }
-        #timer { font-size: 2.5em; font-weight: bold; margin: 20px 0; }
-        p { font-size: 1.2em; color: #000; }
+        h1 { font-size: 2.8em; margin: 0; font-weight: 500; }
+        #timer { font-size: 3.5em; font-weight: bold; margin: 25px 0; color: #ffffff; }
+        .sub-text { font-size: 1.2em; color: #f5f5dc; letter-spacing: 1px; }
     </style>
 </head>
 <body>
 
     <div id="welcome-page">
-        <div class="star" style="top: 15%; left: 10%;">🌟</div>
-        <div class="star" style="top: 10%; right: 15%; animation-delay: 1s;">🌟</div>
-        <div class="star" style="top: 50%; left: 85%; animation-delay: 2s;">🌟</div>
-        <div class="star" style="top: 75%; left: 15%; animation-delay: 0.5s;">🌟</div>
+        <div class="star" style="top: 10%; left: 15%;">🌟</div>
+        <div class="star" style="top: 15%; right: 10%; animation-delay: 1s;">🌟</div>
+        <div class="star" style="top: 55%; left: 80%; animation-delay: 2s;">🌟</div>
+        <div class="star" style="top: 80%; left: 10%; animation-delay: 0.5s;">🌟</div>
         <div class="star" style="top: 40%; left: 5%; animation-delay: 1.5s;">🌟</div>
 
-        <div class="skewer-piece" style="background-image: url('head1.png'); top: 20%; left: 20%; animation-delay: 0s;"></div>
-        <div class="skewer-piece" style="background-image: url('head2.png'); top: 35%; right: 15%; animation-delay: 0.3s;"></div>
+        <div class="intro-text">
+            <p>人和人的遇见 就是一朵小小的涟漪 缓缓地散开</p>
+            <p>而我总认为 世界上那么多人 能和你相遇就是奇迹</p>
+            <p>是我生命中最大的一朵涟漪</p>
+        </div>
         
-        <button class="enter-btn" onclick="enterSite()">START</button>
+        <button class="enter-btn" onclick="enterSite()">开启友谊手册 ✨</button>
     </div>
 
     <div id="main-content">
         <div class="container">
-            <h1>我们的友谊纪念馆 ❤️</h1>
-            <p>从认识到现在，我们已经一起走过了：</p>
-            <div id="timer">加载中...</div>
-            <p>“最好的友谊，就是各自忙乱，互相牵挂。”</p>
+            <h1>从认识到现在</h1>
+            <div id="timer">计算中...</div>
+            <p class="sub-text">我们共享了彼此生命中的</p>
+            <p class="sub-text" style="margin-top: 20px; font-style: italic; opacity: 0.8;">“最好的友谊，就是各自忙乱，互相牵挂。”</p>
         </div>
     </div>
 
@@ -102,14 +121,19 @@
             document.getElementById('welcome-page').style.transform = 'translateY(-100%)';
         }
 
-        // 设置日期：年，月（从0开始，5月就写4），日
-        const startDate = new Date(2009, 09, 01); 
-        setInterval(() => {
+        // 认识日期：2009年9月1日
+        // 注意：JavaScript中月份是从0开始的，所以9月要写成 8
+        const startDate = new Date(2009, 8, 1); 
+        
+        function updateTimer() {
             const now = new Date();
             const diff = now - startDate;
             const days = Math.floor(diff / (1000 * 60 * 60 * 24));
             document.getElementById('timer').innerText = days + " 天";
-        }, 1000);
+        }
+
+        updateTimer();
+        setInterval(updateTimer, 1000);
     </script>
 </body>
 </html>
