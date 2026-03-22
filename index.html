@@ -21,6 +21,22 @@
         .nav-item { color: white; font-size: 0.9em; cursor: pointer; transition: 0.3s; font-weight: bold; opacity: 0.8; }
         .nav-item:hover { opacity: 1; text-shadow: 0 0 8px rgba(255,255,255,0.8); }
 
+        /* 🎵 组合式音乐控制台 (右下角) */
+        #music-container { position: fixed; bottom: 30px; right: 30px; display: flex; align-items: center; z-index: 5500; }
+        #music-main-btn {
+            width: 50px; height: 50px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-size: 22px; cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.2); z-index: 2; transition: 0.3s;
+        }
+        #music-panel {
+            height: 42px; width: 0; background: white; border-radius: 25px 0 0 25px; margin-right: -25px;
+            display: flex; align-items: center; overflow: hidden; transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1); z-index: 1; opacity: 0; padding-left: 0;
+        }
+        #music-container:hover #music-panel { width: 70px; padding-left: 15px; margin-right: -15px; opacity: 1; }
+        #play-pause-icon { font-size: 18px; cursor: pointer; transition: 0.2s; }
+        .rotating { animation: rotateMusic 4s linear infinite; }
+        @keyframes rotateMusic { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
         /* 🏗️ 纵向滚动容器 */
         #main-wrapper { height: 100vh; width: 100vw; transition: transform 0.8s cubic-bezier(0.65, 0, 0.35, 1); }
 
@@ -37,10 +53,9 @@
         .btn-left { left: 3%; } .btn-right { right: 3%; }
         .enter-btn { margin-top: 50px; padding: 15px 50px; background: white; color: #4a7c44; border: none; border-radius: 50px; font-size: 1.2em; font-weight: bold; cursor: pointer; z-index: 105; transition: 0.3s; }
 
-        /* --- 通用内容板块 --- */
+        /* --- 内容板块样式 --- */
         .section-timer { height: 100vh; background: url('bg.jpg') center/cover; display: flex; align-items: center; justify-content: center; position: relative; }
         .timer-container { background: rgba(255,255,255,0.4); backdrop-filter: blur(15px); padding: 50px; border-radius: 30px; text-align: center; width: 70%; }
-
         .section-content { height: 100vh; background-color: #f2f2f2; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; overflow: hidden; }
         .content-header { text-align: center; margin-bottom: 30px; }
         .content-header h1 { font-size: 2.5em; color: #000; margin-bottom: 10px; }
@@ -56,38 +71,29 @@
         .card-title { font-weight: bold; font-size: 1.1em; color: #000; margin-bottom: 5px; }
         .card-desc { color: #666; font-size: 0.85em; line-height: 1.4; }
 
-        /* --- 写给你和我：布局 --- */
+        /* --- 写给你和我：卡片滚动 --- */
         .letter-container-outer { width: 95%; max-width: 1300px; position: relative; display: flex; align-items: center; }
         .letter-track { display: flex; gap: 30px; transition: transform 0.5s ease; width: fit-content; padding: 10px 0; }
         .letter-btn-fixed { border-color: #888; color: #888; width: 40px; height: 40px; font-size: 1.2em; position: absolute; left: 10px; z-index: 100; }
         .letter-btn-right { left: auto; right: 10px; }
-        .letter-btn-fixed:hover { background: rgba(0,0,0,0.05); }
-
-        .letter-card { 
-            background: white; width: 340px; border-radius: 15px; overflow: hidden; 
-            display: flex; flex-direction: column; cursor: pointer; flex-shrink: 0;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05); transition: 0.3s; position: relative;
-        }
-        .letter-card:hover { transform: translateY(4px); box-shadow: inset 0 4px 8px rgba(0,0,0,0.1); }
-        .letter-img-box { width: 100%; height: 226px; background: #e0e0e0; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        .letter-card { background: white; width: 340px; border-radius: 15px; overflow: hidden; flex-shrink: 0; box-shadow: 0 4px 10px rgba(0,0,0,0.05); transition: 0.3s; position: relative; cursor: pointer;}
+        .letter-card:hover { transform: translateY(4px); }
+        .letter-img-box { width: 100%; height: 226px; background: #e0e0e0; overflow: hidden; }
         .letter-img { width: 100%; height: 100%; object-fit: cover; }
         .letter-info { padding: 20px; }
         .letter-date { font-size: 0.75em; color: #999; margin-bottom: 10px; }
         .letter-title { font-size: 1.2em; font-weight: bold; color: #000; margin-bottom: 25px; }
-        .letter-desc { font-size: 0.9em; color: #000; line-height: 1.4; }
         .add-card { background: #e8e8e8; display: flex; align-items: center; justify-content: center; font-size: 4em; color: #bbb; height: 380px; }
 
-        /* --- 🎨 底部栏样式 (新添加) --- */
+        /* --- 🎨 底部栏 --- */
         .footer-nav {
             position: absolute; bottom: 0; left: 0; width: 100%; height: 320px;
             background: url('bg2.jpg') center/cover; padding: 40px 10%; box-sizing: border-box;
-            display: flex; flex-direction: column; justify-content: space-between;
-            color: white; z-index: 10;
+            display: flex; flex-direction: column; justify-content: space-between; color: white; z-index: 10;
         }
         .footer-top { display: flex; gap: 50px; }
-        .footer-col-left { flex: 2; } /* 占 1/2 */
-        .footer-col-mid, .footer-col-right { flex: 1; } /* 各占 1/4 */
-        
+        .footer-col-left { flex: 2; }
+        .footer-col-mid, .footer-col-right { flex: 1; }
         .footer-title { font-weight: bold; font-size: 1.2em; margin-bottom: 20px; display: block; }
         .footer-text { font-weight: normal; font-size: 0.85em; line-height: 1.8; opacity: 0.9; }
         .footer-bottom { text-align: center; font-size: 0.8em; opacity: 0.7; padding-bottom: 10px; }
@@ -95,37 +101,27 @@
         /* 🖼️ 弹窗系统 */
         .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); display: none; z-index: 6000; justify-content: center; align-items: center; }
         .modal-rect { background: white; width: 80%; height: 80%; max-width: 1000px; max-height: 700px; padding: 40px; border-radius: 20px; display: flex; position: relative; box-sizing: border-box; }
-        .close-btn { position: absolute; top: 20px; right: 25px; font-size: 1.8em; cursor: pointer; color: #999; z-index: 100; transition: 0.3s; }
-        .close-btn:hover { color: #000; }
+        .close-btn { position: absolute; top: 20px; right: 25px; font-size: 1.8em; cursor: pointer; color: #999; z-index: 100; }
         .scroll-box { width: 100%; height: 100%; overflow-y: auto; padding-right: 25px; font-size: 1.1em; color: #000; line-height: 1.8; white-space: pre-wrap; }
-        .scroll-box::-webkit-scrollbar { width: 10px; }
-        .scroll-box::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 10px; }
-        .scroll-box::-webkit-scrollbar-thumb { background: #ccc; border-radius: 10px; }
-
-        /* 删除/发帖相关 */
-        .del-btn { position: absolute; bottom: 10px; right: 10px; font-size: 1.1em; opacity: 0.4; transition: 0.3s; padding: 5px; }
-        .del-btn:hover { opacity: 1; transform: scale(1.2); }
-        .post-inner { display: flex; width: 100%; gap: 40px; }
-        .post-left { width: 300px; display: flex; flex-direction: column; }
-        .post-right { flex: 1; display: flex; flex-direction: column; padding-top: 10px; }
-        .upload-area { width: 100%; aspect-ratio: 3/4; background: #333; border-radius: 12px; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #fff; cursor: pointer; transition: 0.3s; overflow: hidden; }
-        .upload-area img { width: 100%; height: 100%; object-fit: cover; }
-        .post-input { width: 100%; border: none; outline: none; padding: 15px 0; font-family: inherit; }
-        .input-title { font-size: 1.4em; font-weight: bold; }
-        .input-intro { font-size: 1.1em; color: #888; }
-        .input-body { font-size: 1em; line-height: 1.6; height: 300px; resize: none; }
-        .post-divider { width: 100%; height: 1px; background: #eee; margin: 2px 0; }
-        .publish-btn { position: absolute; bottom: 30px; right: 30px; padding: 12px 40px; background: #4a7c44; color: white; border: none; border-radius: 50px; font-size: 1.1em; font-weight: bold; cursor: pointer; transition: 0.3s; }
-
-        .scroll-hint { position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); color: #888; font-size: 1em; }
-        .white-hint { color: rgba(255,255,255,0.6); }
-        .wei-modal-text { width: 55%; font-size: 1.8em; font-weight: 900; color: #000; line-height: 1.5; white-space: pre-wrap; }
-        .modal-img { width: 40%; height: auto; border-radius: 10px; object-fit: contain; }
-        .img-only { max-width: 100%; max-height: 100%; border-radius: 10px; object-fit: contain; }
         .nantong-style { color: red; text-shadow: 2px 2px 0px black; font-weight: 900; }
+        
+        .post-inner { display: flex; width: 100%; gap: 40px; }
+        .post-left { width: 300px; }
+        .upload-area { width: 100%; aspect-ratio: 3/4; background: #333; border-radius: 12px; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #fff; cursor: pointer; overflow: hidden; }
+        .post-input { width: 100%; border: none; outline: none; padding: 15px 0; font-family: inherit; }
+        .publish-btn { position: absolute; bottom: 30px; right: 30px; padding: 12px 40px; background: #4a7c44; color: white; border: none; border-radius: 50px; font-size: 1.1em; font-weight: bold; cursor: pointer; }
     </style>
 </head>
 <body>
+
+    <audio id="bg-music" loop>
+        <source src="https://github.com/user-attachments/files/26165318/Take.my.mind.mp3" type="audio/mpeg">
+    </audio>
+
+    <div id="music-container">
+        <div id="music-panel"><span id="play-pause-icon" onclick="togglePlayPause()">⏸️</span></div>
+        <div id="music-main-btn" onclick="startMusicFirstTime()">🎵</div>
+    </div>
 
     <nav id="top-nav">
         <div class="nav-logo">Me&U</div>
@@ -145,37 +141,19 @@
                 <div class="page dot-mask" style="background-image: url('grass.jpg');">
                     <div class="nav-btn btn-left" onclick="moveSlider(3)"> < </div>
                     <div class="nav-btn btn-right" onclick="moveSlider(1)"> > </div>
-                    <div class="intro-text">
-                        <p>人和人的遇见
-就是一朵小小的涟漪 缓缓地散开
-而我总认为 世界上那么多人
-能和你相遇就是奇迹
-是我生命中最大的一朵涟漪</p>
-                    </div>
+                    <div class="intro-text"><p>人和人的遇见\n就是一朵小小的涟漪 缓缓地散开\n而我总认为 世界上那么多人\n能和你相遇就是奇迹\n是我生命中最大的一朵涟漪</p></div>
                     <button class="enter-btn" onclick="autoScroll()">先不要点我哦 ✨</button>
                 </div>
                 <div class="page dot-mask" style="background-image: url('friends.jpg');">
-                    <div class="nav-btn btn-left" onclick="moveSlider(0)"> < </div>
-                    <div class="nav-btn btn-right" onclick="moveSlider(2)"> > </div>
-                    <div class="intro-text"><p>思考了很久给你的二十岁礼物
-好像什么都无法纪念你我的十几岁
-犹豫再三我决定用数据和代码来写下我们的记忆</p></div>
-                    <button class="enter-btn" onclick="autoScroll()">也不要按我哦 ✨</button>
+                    <div class="intro-text"><p>思考了很久给你的二十岁礼物\n好像什么都无法纪念你我的十几岁\n犹豫再三我决定用数据和代码来写下我们的记忆</p></div>
                 </div>
                 <div class="page dot-mask" style="background-image: url('heart.jpg');">
-                    <div class="nav-btn btn-left" onclick="moveSlider(1)"> < </div>
-                    <div class="nav-btn btn-right" onclick="moveSlider(3)"> > </div>
-                    <div class="intro-text"><p>于是这个网站就这样诞生了！
-这是只属于我和你的一个小小世界
-在这个互联网的时代 不论发生什么 它都会一直存在(⁎⁍̴̛ᴗ⁍̴̛⁎)</p></div>
-                    <button class="enter-btn" onclick="autoScroll()">别着急点我哦 ✨</button>
+                    <div class="intro-text"><p>于是这个网站就这样诞生了！\n这是只属于我和你的一个小小世界\n在这个互联网的时代 不论发生什么 它都会一直存在(⁎⁍̴̛ᴗ⁍̴̛⁎)</p></div>
                 </div>
                 <div class="page dot-mask" style="background-image: url('cake.jpg');">
                     <div class="nav-btn btn-left" onclick="moveSlider(2)"> < </div>
                     <div class="nav-btn btn-right" onclick="moveSlider(0)"> > </div>
-                    <div class="intro-text"><p>亲爱的魏依女士：
-20岁生日快乐🎂
-祝你拥有最意气风发和心想事成的二十代</p></div>
+                    <div class="intro-text"><p>亲爱的魏依女士：\n20岁生日快乐🎂\n祝你拥有最意气风发和心想事成的二十代</p></div>
                     <button class="enter-btn" onclick="autoScroll()">请严肃点击我！✨</button>
                 </div>
             </div>
@@ -187,165 +165,92 @@
                 <div id="timer" style="font-size: 5.5em; font-weight: 900; color: white; margin: 20px 0;"></div>
                 <p style="color:black; font-weight:bold; font-size:1.2em;">“最好的友谊，就是各自忙乱，互相牵挂。”</p>
             </div>
-            <div class="scroll-hint white-hint">（上下滑动可切换页面）</div>
         </section>
 
         <section class="section-content">
-            <div class="content-header"><h1>关于我们</h1><div class="green-line"></div><p>追溯过去的记忆，我们走过的每一步。</p></div>
+            <div class="content-header"><h1>关于我们</h1><div class="green-line"></div></div>
             <div class="grid-layout about-grid">
                 <div class="card" onclick="openFullImg('01.jpg')"><div class="card-icon">🌟</div><div><div class="card-title">2009-2017</div><div class="card-desc">幼儿园到小学的童年时光</div></div></div>
-                <div class="card" onclick="openFullImg('02.jpg')"><div class="card-icon">🌟</div><div><div class="card-title">2017-2020</div><div class="card-desc">陌生环境下真正熟悉的三年，经历了好多好多</div></div></div>
-                <div class="card" onclick="openFullImg('03.jpg')"><div class="card-icon">🌟</div><div><div class="card-title">2020-2023</div><div class="card-desc">忙碌但充满幸福的高中，相互鼓励相互陪伴，难以忘记</div></div></div>
-                <div class="card" onclick="openFullImg('04.jpg')"><div class="card-icon">🌟</div><div><div class="card-title">2023-至今</div><div class="card-desc">充满不确定与挑战，但我相信仍然会是很好的延续</div></div></div>
+                <div class="card" onclick="openFullImg('02.jpg')"><div class="card-icon">🌟</div><div><div class="card-title">2017-2020</div><div class="card-desc">陌生环境下真正熟悉的三年</div></div></div>
+                <div class="card" onclick="openFullImg('03.jpg')"><div class="card-icon">🌟</div><div><div class="card-title">2020-2023</div><div class="card-desc">忙碌但充满幸福的高中</div></div></div>
+                <div class="card" onclick="openFullImg('04.jpg')"><div class="card-icon">🌟</div><div><div class="card-title">2023-至今</div><div class="card-desc">我相信仍然会是很好的延续</div></div></div>
             </div>
-            <div class="scroll-hint">（上下滑动可切换页面）</div>
         </section>
 
         <section class="section-content">
-            <div class="content-header"><h1>我眼中的魏依</h1><div class="green-line"></div><p>谢谢你成为了我的几分之几。真诚的点点滴滴我永远看在眼里。</p></div>
+            <div class="content-header"><h1>我眼中的魏依</h1><div class="green-line"></div></div>
             <div class="grid-layout wei-grid">
-                <div class="card" onclick="openWeiComplex('登上人民网的魏女士\n向你致敬！', '11.jpg')"><div class="card-icon">🪄</div><div><div class="card-title">认真</div><div class="card-desc">不管嘴上如何说，实际上对人对事都十分认真</div></div></div>
-                <div class="card" onclick="openWeiComplex('飒！是一种格局宽阔无边，\n飒！是一种速度遥遥领先，\n飒！是一种境界天外有天，\n飒！是一种气质风迷万千！！！', '12.jpg')"><div class="card-icon">🪄</div><div><div class="card-title">飒！</div><div class="card-desc">好帅。(这句话虽然只有短短的两个字，却透露出一丝寒冷与漫不经心的从容结尾的句号充分体现了本人高贵优雅的气质)</div></div></div>
-                <div class="card" onclick="openWeiComplex('对身边人情绪关怀面面俱到，e之e之', '13.jpg')"><div class="card-icon">🪄</div><div><div class="card-title">情绪价值の神</div><div class="card-desc">总能给予身边人情绪价值，超级大e人</div></div></div>
-                <div class="card" onclick="openWeiComplex('真正的“想一出是一出”，我就不一样了，我是“想一出但出不了”.jpg', '14.jpg')"><div class="card-icon">🪄</div><div><div class="card-title">行动力强</div><div class="card-desc">超强实践派，高行动力的理想主义者！</div></div></div>
-                <div class="card" onclick="openNantong()"><div class="card-icon">🪄</div><div><div class="card-title">持之以恒</div><div class="card-desc">认定了什么就会坚持到底</div></div></div>
-                <div class="card" onclick="openFullImg('16.jpg')"><div class="card-icon">🪄</div><div><div class="card-title">比格•魔丸•吉娃娃•尖嘴跳蚤</div><div class="card-desc">时神时魔时人。大部分时候是魔丸。</div></div></div>
+                <div class="card" onclick="openWeiComplex('登上人民网的魏女士！', '11.jpg')"><div class="card-icon">🪄</div><div><div class="card-title">认真</div><div class="card-desc">对人对事都十分认真</div></div></div>
+                <div class="card" onclick="openWeiComplex('飒！是一种格局宽阔无边！', '12.jpg')"><div class="card-icon">🪄</div><div><div class="card-title">飒！</div><div class="card-desc">好帅。</div></div></div>
+                <div class="card" onclick="openWeiComplex('情绪价值の神，e之e之', '13.jpg')"><div class="card-icon">🪄</div><div><div class="card-title">情绪价值</div><div class="card-desc">超级大e人</div></div></div>
+                <div class="card" onclick="openWeiComplex('想一出是一出.jpg', '14.jpg')"><div class="card-icon">🪄</div><div><div class="card-title">行动力强</div><div class="card-desc">超强实践派！</div></div></div>
+                <div class="card" onclick="openNantong()"><div class="card-icon">🪄</div><div><div class="card-title">持之以恒</div><div class="card-desc">认定了就会坚持到底</div></div></div>
+                <div class="card" onclick="openFullImg('16.jpg')"><div class="card-icon">🪄</div><div><div class="card-title">魔丸</div><div class="card-desc">大部分时候是魔丸。</div></div></div>
             </div>
-            <div class="scroll-hint">（上下滑动可切换页面）</div>
         </section>
 
         <section class="section-content">
-            <div class="content-header">
-                <h1>写给你和我</h1>
-                <div class="green-line"></div>
-                <p style="max-width: 800px; margin: 0 auto;">有些话我平时很难说出口，但我其实也想了很多很多，也犹豫过无数次要不要摊开来跟你讲，时逢你的二十岁，我终于决定把它们写在这里。</p>
-            </div>
+            <div class="content-header"><h1>写给你和我</h1><div class="green-line"></div></div>
             <div class="letter-container-outer">
                 <div class="nav-btn letter-btn-fixed" onclick="moveLetters(-1)"> < </div>
-                <div style="width: 100%; overflow: hidden; margin: 0 60px;">
-                    <div id="letter-track" class="letter-track"></div>
-                </div>
+                <div style="width: 100%; overflow: hidden; margin: 0 60px;"><div id="letter-track" class="letter-track"></div></div>
                 <div class="nav-btn letter-btn-fixed letter-btn-right" onclick="moveLetters(1)"> > </div>
             </div>
-            <div class="scroll-hint">（上下滑动可切换页面）</div>
         </section>
 
         <section class="section-content">
-            <div class="content-header" style="margin-top: -100px;">
-                <h1>我们的未来</h1>
-                <div class="green-line"></div>
-                <p>未来难以预测，我选择留白。留给以后的我们来书写。</p>
-            </div>
+            <div class="content-header" style="margin-top:-100px;"><h1>我们的未来</h1><div class="green-line"></div></div>
             <div style="font-size: 5em; opacity: 0.1; margin-bottom: 50px;">∞</div>
-
             <footer class="footer-nav">
                 <div class="footer-top">
-                    <div class="footer-col-left">
-                        <span class="footer-title">About网页</span>
-                        <p class="footer-text">感谢ai帮我写代码，感谢xhs网友提供的灵感，断断续续做了小半个月，真的给我做的没招了…不过还好最后做出来的成品还算能看呃啊啊啊！！以后可能还会再想起来就时不时往这个网站里加点东西哼哼。。有加号的那一页也是真的可以发布东西的，想说点啥写点啥都可以写在那里^ω^</p>
-                    </div>
-                    <div class="footer-col-mid">
-                        <span class="footer-title">听听歌吧</span>
-                        <p class="footer-text">点一下试试吧</p>
-                    </div>
-                    <div class="footer-col-right">
-                        <span class="footer-title">记录瞬间</span>
-                        <p class="footer-text">值得珍藏的一些时刻</p>
-                    </div>
+                    <div class="footer-col-left"><span class="footer-title">About网页</span><p class="footer-text">感谢ai帮我写的几百行代码，感谢xhs网友提供的灵感，断断续续做了小半个月，真的给我做的没招了…不过还好最后做出来的成品还算能看呃啊啊啊！！以后可能还会再想起来就时不时往这个网站里加点东西哼哼。。有加号的那一页也是真的可以发布东西的，想说点啥写点啥都可以写在那里^ω^</p></div>
+                    <div class="footer-col-mid"><span class="footer-title" style="cursor:pointer;" onclick="togglePlayPause()">听听歌吧</span><p class="footer-text">点一下试试吧</p></div>
+                    <div class="footer-col-right"><span class="footer-title">记录瞬间</span><p class="footer-text">值得珍藏的一些时刻</p></div>
                 </div>
-                <div class="footer-bottom">
-                    All for wy&lrx📪Born in 2026
-                </div>
+                <div class="footer-bottom">All for wy&lrx📪Born in 2026</div>
             </footer>
         </section>
     </div>
 
+    <div id="letter-overlay" class="overlay"><div class="modal-rect"><div class="close-btn" onclick="closeOverlay()">x</div><div id="letter-scroll-content" class="scroll-box"></div></div></div>
+    <div id="wei-overlay" class="overlay"><div class="modal-rect"><div class="close-btn" onclick="closeOverlay()">x</div><div id="wei-text-div" style="width:55%; font-size:1.8em; font-weight:900; line-height:1.5; color:#000;"></div><img id="wei-img-tag" style="width:40%; border-radius:10px; object-fit:contain;"></div></div>
+    <div id="img-overlay" class="overlay"><div class="modal-rect" style="background:transparent;box-shadow:none;"><div class="close-btn" onclick="closeOverlay()" style="color:white;">x</div><img id="pop-img-only" style="max-width:100%; max-height:100%; margin:auto;"></div></div>
     <div id="post-overlay" class="overlay">
         <div class="modal-rect">
             <div class="close-btn" onclick="closeOverlay()">x</div>
             <div class="post-inner">
                 <div class="post-left">
-                    <div class="upload-area" onclick="document.getElementById('fileInput').click()">
-                        <div id="preview-placeholder">+<br>添加封面</div>
-                        <img id="preview-img" style="display:none">
-                    </div>
-                    <input type="file" id="fileInput" hidden accept="image/png, image/jpeg" onchange="handleFile(this)">
+                    <div class="upload-area" onclick="document.getElementById('fileInput').click()"><div id="preview-placeholder">+<br>封面</div><img id="preview-img" style="display:none; width:100%; height:100%; object-fit:cover;"></div>
+                    <input type="file" id="fileInput" hidden onchange="handleFile(this)">
                 </div>
                 <div class="post-right">
-                    <input type="text" id="post-title" class="post-input input-title" placeholder="标题（必填）">
-                    <div class="post-divider"></div>
-                    <input type="text" id="post-intro" class="post-input input-intro" placeholder="简介写在这里">
-                    <div class="post-divider" style="background:#f2f2f2"></div>
-                    <textarea id="post-body" class="post-input input-body" placeholder="添加正文"></textarea>
+                    <input type="text" id="post-title" class="post-input" placeholder="标题">
+                    <textarea id="post-body" class="post-input" placeholder="写点什么..." style="height:300px; resize:none;"></textarea>
                     <button class="publish-btn" onclick="publishPost()">发布</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <div id="letter-overlay" class="overlay"><div class="modal-rect"><div class="close-btn" onclick="closeOverlay()">x</div><div id="letter-scroll-content" class="scroll-box"></div></div></div>
-    <div id="wei-overlay" class="overlay"><div class="modal-rect"><div class="close-btn" onclick="closeOverlay()">x</div><div id="wei-text-div" class="wei-modal-text"></div><img id="wei-img-tag" class="modal-img"></div></div>
-    <div id="img-overlay" class="overlay"><div class="modal-rect" style="background:transparent;box-shadow:none;justify-content:center;"><div class="close-btn" onclick="closeOverlay()" style="color:white;">x</div><img id="pop-img-only" class="img-only"></div></div>
-
     <script>
+        const music = document.getElementById('bg-music');
+        const mainBtn = document.getElementById('music-main-btn');
+        const ppIcon = document.getElementById('play-pause-icon');
+        let hasStarted = false;
+
+        function startMusicFirstTime() {
+            if (!hasStarted) { music.play(); mainBtn.classList.add('rotating'); ppIcon.innerText = "⏸️"; hasStarted = true; } 
+            else { togglePlayPause(); }
+        }
+        function togglePlayPause() {
+            if (music.paused) { music.play(); mainBtn.classList.add('rotating'); ppIcon.innerText = "⏸️"; } 
+            else { music.pause(); mainBtn.classList.remove('rotating'); ppIcon.innerText = "▶️"; }
+        }
+
         const wrapper = document.getElementById('main-wrapper');
         const nav = document.getElementById('top-nav');
-        const letterTrack = document.getElementById('letter-track');
         let curPage = 0;
-        let letterPos = 0;
         let isOverlayOpen = false;
-        let currentImgBase64 = null;
-
-        const baseLetters = [
-            {date: "2026年3月21日", title: "20岁生日信", intro: "写给20岁的魏依", body: "亲爱的魏·吉娃娃塑拥有者·170+傲人身高·十年专注男同不动摇·尖嘴跳蚤·魏饼之主·依女士，20岁生日快乐！恭喜进入属于你的二十代！\n不知不觉又过去一年，时间过的好快又好慢，又是一个春天到了，我总是觉得春天是个很浪漫的季节，当然诞生在春天的你也充满了春日阳光的温暖。我总在和你相处的过程中被感动、被温暖到。在我和你的这段友谊中，起源像一朵无意绽放在你我人生中的涟漪，而这片涟漪随着你我点点滴滴的聚集又凝成了一朵越来越大的涟漪，振动着我们的彼此的人生。哪怕在相隔几百公里的距离下，我也感觉这片涟漪始终在共振。距离很遥远，我们也很忙碌，但共振的频率一如既往牵动着我的心。\n二十岁在以前总觉得真是个非常遥远的年纪，怎么会来得如此之快呢。前几天你还提到好像也就这样安静地长大了，没有所谓的宏大和轰轰烈烈，确实，我想起来小时候在语文课上写下过的理想信念好像笔下画出的攀天大树，枝干延伸的长长的，那时候小小的我们都在期待着能触摸到天空。可真正长到现在又感觉不太一样，我们并没有按照小时候自己期待的那样生长成“大树”，而说实在的，我感觉像现在这样长大也不孬。不是“大树”，但我们可以自由地成长，长成小野草，长成低矮但根系扎实的灌木，甚至长成随着风自由滚动的风滚草，长成怎么样都行。\n说到这里我又觉得你像风滚草了，想到什么就去做，想去哪里也能够抵达，是一团成长的非常好的风滚草。未来是怎么样的呢？我们全都无从得知。那就做风滚草吧，没有路，但不管往哪里都是坦途。\n生日快乐，不止生日快乐，更要每天都快乐，健健康康，平平安安。", img: "a.jpg", fixed: true},
-            {date: "2026年3月21日", title: "很难说出口的", intro: "瞻前顾后太久，说不出口的一些话", body: "首先以下都是我在过去几年反复思考过，反复纠结过，每次想说最后又没有说，压了很久很久的一些话，希望你能看完。\n你，包括我身边所有跟我有网络上联系的人应该都知道我更多时候是用的QQ而不是微信，但大一的时候也不是这样子的。这一点我心知肚明原因。说实话是非常小的一件事情，也就是大一下学期五一假期那会，当时我回长沙，本来是想找你还有lxx、xry一起出去玩，可直到临近五一那会我才知道你要和xry一起出去玩，那会我感觉心里有坨疙瘩就这样冒出来了，虽然我知道因为你和xry在一起上学，平常联系和能够一起出去的机会必然更多，而且这其实只是简单出去玩而已，但我后面反复回想，好像总结出来让我隐隐感觉真正不舒服的是“你没有提前说，背着我们安排好行程，我以为我回去能见到我的朋友，结果并没有。同时让我感觉你和她比和我更好了，我觉得我像被抛弃了”，真的是好幼稚的原因，我这样说出来都觉得奇怪和看不懂我自己。。。但当时我没有第一时间去跟你说，现在想起来很后悔，因为我知道你是很真诚的一个人，如果我直接跟你说了，说出口了，那是不是后面这几年我就不会变本加厉地更加纠结和不安，不会到现在这样我有时候会感觉我和你之间隔了一层纱。\n在这之后我有意减少了对微信的查看，因为我看到你跟其他朋友在一起就会，呃，我找不到词语来形容，暂且用吃醋这个词指代。。。这让我感到很惊恐，我惊恐于我对于你和我这段友情的占有欲，我知道这非常不对劲，我跟有病一样，你不可能只有我一个朋友，我只是单纯看到你和其他人比和我更好我就感到难受这也太奇怪了，我不能把你捆在我一个人的身边。于是我就不去看了，我催眠自己我看不到我就不会难受，到后面25年开始，我甚至关闭了朋友圈。而去年这一整年反而是我这种状态更为加重的一段时期，因为看不到，我有时候更会瞎猜乱猜到处乱想，更多时候我在唾弃我自己，感觉心情很复杂，看到你交很多朋友，看到更多更新鲜好玩的事物，看到更广阔的世界，为你变得更好而感到高兴的同时居然我埋在心里更多的反而是不知所措。感觉你变了很多，我好像也变了很多，我不知所措地不知道该怎么继续跟你当朋友，好像如果按高中时跟你相处也不太合适。。我怎么是这样一个人。\n总感觉我们喜欢的东西不太一样了，共同话题也好像在逐渐变少，我想跟你聊天时总找不到能适合拿来分享的东西。聊学业？不太好不是一个专业而且上的太痛苦了大部分时候都是负面情绪。聊未来？要死啊压力够大了还聊这个越聊越崩溃啊。聊开心的事情？不对万一点对不上我强行跟你分享的话只会适得其反是我在找你要情绪价值这样是不对的人的情绪是有限的而且如果你心情不好我还跟你聊这些那只会更不好了。聊爱好？喜欢的东西不太一样了好难开场只会循环到上一个我担心的结果。每每想到这我最后又总是按下不谈，反复再三又还是没开始。明明高中时绝对不会这样的。\n而我打开QQ又总能看见你跟我分享的你和你其他朋友的事宜，每当这时我就会逃避，因为不知道该如何处理，只会感觉心口发闷但不知道该怎么做。啊我真的是神经病吧，打开xhs的时候我甚至会特意避开关注页面不去看，因为我总能看到你和xry顶着闺蜜头像，好吧然后我就会冒出来想法“她是不是才是你最重要的那个人？我是不是对你来说没那么重要了？”，然后稳又觉得我自己好笑，真的神经病啊简直。明明是我一直在逃避难道我还指望你一直看着我不放手吗，这样下去就是我在不解决问题反复伤害我自己的同时更加伤害你。\n我本来想着得过且过，如果我和你之间关系还能一直下去的话好像也没什么问题。只要能继续，这些话我哪怕压一辈子不说出来都没事。不过因为感觉这种状况持续太久了，我也担心我或许真的是个神经病，在过去一两年里我大量搜索，还查ai，发现很多人跟我有一样的感受和经历。但我看到这些人经历的感情最后几乎都走向了结束…结束？？？不对这不是我想要的。我反复审视过我和你，我能很清楚地认识到你是我非常珍视的人，是我绝对不想失去的朋友，是我生命中很重要很重要的存在，我绝对不想结束我和你之间的友情。于是又思考很久，久到从去年暑假起，已经过了大半年，其实在寒假我跟你仅有的那一次见面，在花雕醉鸡的那一次见面我就想跟你说，结果最后这通话在肚子里憋了一晚上还是没能说出来。于是就这样又过了两个月，我把这通话写在这里。\n啊我印象最深的是有一个帖子评论区里的话，大概是说女孩子之间闹掰的原因，竟然大部分都是因为互相怀疑自己其实在对方心中没那么重要。我前段时间因为上专业课然后被逼着看了点《不可承受的生命之轻》，虽然我最终也没看完并且难以苟同米兰昆德拉提出来的有些内容和想法，但我感觉在感情上我实在是个太“重”的人，社交圈很小，我会很“重”地去看待感情，而不幸地是我又总担心对方“轻”，就此患得患失。\n说到这里我好像也不知道还能再说些什么了，不知道你看完会是什么感受，我只想说对我来说你真的很重要，过去我的回避对你造成的伤害 I 感到很对不起，我会尽可能改变我逃避的做法，而我也只想知道在你心里我究竟处于什么样的位置。对于友谊来说永远和一辈子都太飘渺不定，而我珍惜我和你之间的友谊，我想求一个永远。", img: "b.jpg", fixed: true},
-            {date: "2026年3月22日", title: "珍惜", intro: "不论是否能见面，我都珍惜", body: "越忙越难见面，在不见面的日子里我也会想念你。", img: "c.jpg", fixed: true}
-        ];
-
-        let dynamicLetters = JSON.parse(localStorage.getItem('my_memories')) || [];
-
-        function renderLetters() {
-            letterTrack.innerHTML = '';
-            const all = [...baseLetters, ...dynamicLetters];
-            all.forEach((item, index) => {
-                const card = document.createElement('div');
-                card.className = 'letter-card';
-                card.onclick = (e) => { if(e.target.className === 'del-btn') return; openLetterContent(item.body); };
-                const imgTag = item.img ? `<img src="${item.img}" class="letter-img">` : `<span style="color:#999;font-size:0.9em;">没有图片哦</span>`;
-                const delTag = item.fixed ? '' : `<div class="del-btn" onclick="deletePost(${index - baseLetters.length})">🗑️</div>`;
-                card.innerHTML = `<div class="letter-img-box">${imgTag}</div><div class="letter-info"><div class="letter-date">${item.date}</div><div class="letter-title">${item.title}</div><div class="letter-desc">${item.intro}</div>${delTag}</div>`;
-                letterTrack.appendChild(card);
-            });
-            for(let i=0; i<2; i++){
-                const add = document.createElement('div');
-                add.className = 'letter-card add-card'; add.innerText = '➕'; add.onclick = openPostModal;
-                letterTrack.appendChild(add);
-            }
-        }
-
-        function publishPost() {
-            const title = document.getElementById('post-title').value;
-            const intro = document.getElementById('post-intro').value;
-            const body = document.getElementById('post-body').value;
-            if (!title) return alert("标题必填哦");
-            const newItem = {
-                date: new Date().toLocaleDateString('zh-CN', {year:'numeric', month:'long', day:'numeric'}),
-                title: title, intro: intro, body: body, img: currentImgBase64, fixed: false
-            };
-            dynamicLetters.push(newItem);
-            localStorage.setItem('my_memories', JSON.stringify(dynamicLetters));
-            document.getElementById('post-title').value = ""; document.getElementById('post-intro').value = ""; document.getElementById('post-body').value = "";
-            document.getElementById('preview-img').style.display = 'none'; document.getElementById('preview-placeholder').style.display = 'block';
-            currentImgBase64 = null; renderLetters(); closeOverlay();
-        }
-
-        function deletePost(idx) {
-            if(confirm("确定要删除这段记忆吗？")) {
-                dynamicLetters.splice(idx, 1);
-                localStorage.setItem('my_memories', JSON.stringify(dynamicLetters));
-                renderLetters();
-            }
-        }
 
         function scrollToPage(index) {
             if (isOverlayOpen) return;
@@ -354,49 +259,67 @@
             nav.className = (index >= 2) ? 'black-mode' : '';
         }
 
-        function handleFile(input) {
-            const file = input.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = (e) => {
-                    currentImgBase64 = e.target.result;
-                    document.getElementById('preview-img').src = currentImgBase64;
-                    document.getElementById('preview-img').style.display = 'block';
-                    document.getElementById('preview-placeholder').style.display = 'none';
-                };
-                reader.readAsDataURL(file);
+        const baseLetters = [
+            {
+                date: "2026年3月21日", 
+                title: "20岁生日信", 
+                body: "亲爱的魏·吉娃娃塑拥有者·170+傲人身高·十年专注男同不动摇·尖嘴跳蚤·魏饼之主·依女士，20岁生日快乐！恭喜进入属于你的二十代！\n不知不觉又过去一年，时间过的好快又好慢，又是一个春天到了，我总是觉得春天是个很浪漫的季节，当然诞生在春天的你也充满了春日阳光的温暖。我总在和你相处的过程中被感动、被温暖到。在我和你的这段友谊中，起源像一朵无意绽放在你我人生中的涟漪，而这片涟漪随着你我点点滴滴的聚集又凝成了一朵越来越大的涟漪，振动着我们的彼此的人生。哪怕在相隔几百公里的距离下，我也感觉这片涟漪始终在共振。距离很遥远，我们也很忙碌，但共振的频率一如既往牵动着我的心。\n二十岁在以前总觉得真是个非常遥远的年纪，怎么会来得如此之快呢。前几天你还提到好像也就这样安静地长大了，没有所谓的宏大和轰轰烈烈，确实，我想起来小时候在语文课上写下过的理想信念好像笔下画出的攀天大树，枝干延伸的长长的，那时候小小的我们都在期待着能触摸到天空。可真正长到现在又感觉不太一样，我们并没有按照小时候自己期待的那样生长成“大树”，而说实在的，我感觉像现在这样长大也不孬。不是“大树”，但我们可以自由地成长，长成小野草，长成低矮但根系扎实的灌木，甚至长成随着风自由滚动的风滚草，长成怎么样都行。\n说到这里我又觉得你像风滚草了，想到什么就去做，想去哪里也能够抵达，是一团成长的非常好的风滚草。未来是怎么样的呢？我们全都无从得知。那就做风滚草吧，没有路，但不管往哪里都是坦途。\n生日快乐，不止生日快乐，更要每天都快乐，健健康康，平平安安。", 
+                img: "a.jpg"
+            },
+            {
+                date: "2026年3月21日", 
+                title: "很难说出口的", 
+                body: "首先以下都是我在过去几年反复思考过，反复纠结过，每次想说最后又没有说，压了很久很久的一些话，希望你能看完。\n你，包括我身边所有跟我有网络上联系的人应该都知道我更多时候是用的QQ而不是微信，但大一的时候也不是这样子的。这一点我心知肚明原因。说实话是非常小的一件事情，也就是大一下学期五一假期那会，当时我回长沙，本来是想找你还有lxx、xry一起出去玩，可直到临近五一那会我才知道你要和xry一起出去玩，那会我感觉心里有坨疙瘩就这样冒出来了，虽然我知道因为你和xry在一起上学，平常联系和能够一起出去的机会必然更多，而且这其实只是简单出去玩而已，但我后面反复回想，好像总结出来让我隐隐感觉真正不舒服的是“你没有提前说，背着我们安排好行程，我以为我回去能见到我的朋友，结果并没有。同时让我感觉你和她比和我更好了，我觉得我像被抛弃了”，真的是好幼稚的原因，我这样说出来都觉得奇怪和看不懂我自己。。。但当时我没有第一时间去跟你说，现在想起来很后悔，因为我知道你是很真诚的一个人，如果我直接跟你说了，说出口了，那是不是后面这几年我就不会变本加厉地更加纠结和不安，不会到现在这样我有时候会感觉我和你之间隔了一层纱。\n在这之后我有意减少了对微信的查看，因为我看到你跟其他朋友在一起就会，呃，我找不到词语来形容，暂且用吃醋这个词指代。。。这让我感到很惊恐，我惊恐于我对于你和我这段友情的占有欲，我知道这非常不对劲，我跟有病一样，你不可能只有我一个朋友，我只是单纯看到你和其他人比和我更好我就感到难受这也太奇怪了，我不能把你捆在我一个人的身边。于是我就不去看了，我催眠自己我看不到我就不会难受，到后面25年开始，我甚至关闭了朋友圈。而去年这一整年反而是我这种状态更为加重的一段时期，因为看不到，我有时候更会瞎猜乱猜到处乱想，更多时候我在唾弃我自己，感觉心情很复杂，看到你交很多朋友，看到更多更新鲜好玩的事物，看到更广阔的世界，为你变得更好而感到高兴的同时居然我埋在心里更多的反而是不知所措。感觉你变了很多，我好像也变了很多，我不知所措地不知道该怎么继续跟你当朋友，好像如果按高中时跟你相处也不太合适。。我怎么是这样一个人。\n总感觉我们喜欢的东西不太一样了，共同话题也好像在逐渐变少，我想跟你聊天时总找不到能适合拿来分享的东西。聊学业？不太好不是一个专业而且上的太痛苦了大部分时候都是负面情绪。聊未来？要死啊压力够大了还聊这个越聊更崩溃啊。聊开心的事情？不对万一点对不上我强行跟你分享的话只会适得其反是我在找你要情绪价值这样是不对的人的情绪是有限的而且如果你心情不好我还跟你聊这些那只会更不好了。聊爱好？喜欢的东西不太一样了好难开场只会循环到上一个我担心的结果。每每想到这我最后又总是按下不谈，反复再三又还是没开始。明明高中时绝对不会这样的。\n而我打开QQ又总能看见你跟我分享的你和你其他朋友的事宜，每当这时我就会逃避，因为不知道该如何处理，只会感觉心口发闷但不知道该怎么做。啊我真的是神经病吧，打开xhs的时候我甚至会特意避开关注页面不去看，因为我总能看到你和xry顶着闺蜜头像，好吧然后我就会冒出来想法“她是不是才是你最重要的那个人？我是不是对你来说没那么重要了？”，然后稳又觉得我自己好笑，真的神经病啊简直。明明是我一直在逃避难道我还指望你一直看着我不放手吗，这样下去就是我在不解决问题反复伤害我自己的同时更加伤害你。\n我本来想着得过且过，如果我和你之间关系还能一直下去的话好像也没什么问题。只要能继续，这些话我压一辈子不说出来都没事。不过因为感觉这种状况持续太久了，我也担心我或许真的是个神经病，在过去一两年里我大量搜索，还查ai，发现很多人跟我有一样的感受和经历。但我看到这些人经历的感情最后几乎都走向了结束…结束？？？不对这不是我想要的。我反复审视过我和你，我能很清楚地认识到你是我非常珍视的人，是我绝对不想失去的朋友，是我生命中很重要很重要的存在，我绝对不想结束我和你之间的友情。于是又思考很久，久到从去年暑假起，已经过了大半年，其实在寒假我跟你仅有的那一次见面，在花雕醉鸡的那一次见面我就想跟你说，结果最后这通话在肚子里憋了一晚上还是没能说出来。于是就这样又过了两个月，我把这通话写在这里。\n啊我印象最深的是有一个帖子评论区里的话，大概是说女孩子之间闹掰的原因，竟然大部分都是因为互相怀疑自己其实在对方心中没那么重要。我前段时间因为上专业课然后被逼着看了点《不可承受的生命之轻》，虽然我最终也没看完并且难以苟同米兰昆德拉提出来的有些内容和想法，但我感觉在感情上我实在是个太“重”的人，社交圈很小，我会很“重”地去看待感情，而不幸地是我又总担心对方“轻”，就此患得患失。\n说到这里我好像也不知道还能再说些什么了，不知道你看完会是什么感受，我只想说对我来说你真的很重要，过去我的回避对你造成的伤害 I 感到很对不起，我会尽可能改变我逃避的做法，而我也只想知道在你心里我究竟处于什么样的位置。对于友谊来说永远和一辈子都太飘渺不定，而我珍惜我和你之间的友谊，我想求一个永远。", 
+                img: "b.jpg"
             }
+        ];
+
+        let dynamicLetters = JSON.parse(localStorage.getItem('my_memories')) || [];
+        function renderLetters() {
+            const track = document.getElementById('letter-track'); track.innerHTML = '';
+            [...baseLetters, ...dynamicLetters].forEach((item, i) => {
+                const card = document.createElement('div'); card.className = 'letter-card';
+                card.onclick = () => openLetterContent(item.body);
+                card.innerHTML = `<div class="letter-img-box"><img src="${item.img}" class="letter-img"></div><div class="letter-info"><div class="letter-date">${item.date}</div><div class="letter-title">${item.title}</div></div>`;
+                track.appendChild(card);
+            });
+            const add = document.createElement('div'); add.className = 'letter-card add-card'; add.innerText = '➕'; add.onclick = () => { isOverlayOpen=true; document.getElementById('post-overlay').style.display='flex'; };
+            track.appendChild(add);
         }
 
-        function moveLetters(dir) {
-            const trackWidth = letterTrack.scrollWidth;
-            letterPos += dir * 370;
-            if (letterPos < 0) letterPos = 0;
-            if (letterPos > trackWidth - 800) letterPos = trackWidth - 800;
-            letterTrack.style.transform = `translateX(-${letterPos}px)`;
+        function openLetterContent(text) {
+            isOverlayOpen = true;
+            document.getElementById('letter-scroll-content').innerText = text;
+            document.getElementById('letter-overlay').style.display = 'flex';
+            if(!music.paused) music.volume = 0.2;
         }
 
-        function openLetterContent(text) { isOverlayOpen = true; document.getElementById('letter-scroll-content').innerText = text; document.getElementById('letter-overlay').style.display = 'flex'; }
-        function openPostModal() { isOverlayOpen = true; document.getElementById('post-overlay').style.display = 'flex'; }
-        function closeOverlay() { isOverlayOpen = false; document.querySelectorAll('.overlay').forEach(el => el.style.display = 'none'); }
-        function autoScroll() { curPage = 1; scrollToPage(1); }
-        function moveSlider(index) { document.getElementById('slider').style.transform = `translateX(-${index * 100}vw)`; }
-        function openFullImg(src) { isOverlayOpen = true; document.getElementById('pop-img-only').src = src; document.getElementById('img-overlay').style.display = 'flex'; }
-        function openWeiComplex(t, i) { isOverlayOpen = true; document.getElementById('wei-text-div').innerText = t; document.getElementById('wei-img-tag').src = i; document.getElementById('wei-overlay').style.display = 'flex'; }
-        function openNantong() { isOverlayOpen = true; document.getElementById('wei-text-div').innerHTML = '看<span class="nantong-style">男同</span>也持之以恒呢。'; document.getElementById('wei-img-tag').src = '15.jpg'; document.getElementById('wei-overlay').style.display = 'flex'; }
+        function closeOverlay() {
+            isOverlayOpen = false;
+            document.querySelectorAll('.overlay').forEach(el => el.style.display = 'none');
+            music.volume = 1.0;
+        }
 
-        renderLetters();
-        const startDate = new Date(2009, 8, 1);
-        setInterval(() => {
-            const now = new Date(); const diff = now - startDate;
-            document.getElementById('timer').innerText = Math.floor(diff / (1000 * 60 * 60 * 24)) + " 天";
-        }, 1000);
+        let letterPos = 0;
+        function moveLetters(dir) { letterPos += dir * 370; document.getElementById('letter-track').style.transform = `translateX(-${Math.max(0, letterPos)}px)`; }
+        function moveSlider(i) { document.getElementById('slider').style.transform = `translateX(-${i * 100}vw)`; }
+        function openFullImg(s) { isOverlayOpen=true; document.getElementById('pop-img-only').src=s; document.getElementById('img-overlay').style.display='flex'; }
+        function openWeiComplex(t, i) { isOverlayOpen=true; document.getElementById('wei-text-div').innerText=t; document.getElementById('wei-img-tag').src=i; document.getElementById('wei-overlay').style.display='flex'; }
+        function openNantong() { isOverlayOpen=true; document.getElementById('wei-text-div').innerHTML='看<span class="nantong-style">男同</span>也持之以恒呢。'; document.getElementById('wei-img-tag').src='15.jpg'; document.getElementById('wei-overlay').style.display='flex'; }
+        function autoScroll() { scrollToPage(1); }
 
         window.addEventListener('wheel', (e) => {
             if (isOverlayOpen) return;
             if (e.deltaY > 50 && curPage < 5) scrollToPage(curPage + 1);
             if (e.deltaY < -50 && curPage > 0) scrollToPage(curPage - 1);
         });
+
+        setInterval(() => {
+            const diff = new Date() - new Date(2009, 8, 1);
+            document.getElementById('timer').innerText = Math.floor(diff / (1000 * 60 * 60 * 24)) + " 天";
+        }, 1000);
+
+        renderLetters();
     </script>
 </body>
 </html>
