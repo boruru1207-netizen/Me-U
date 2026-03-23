@@ -3,9 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>Me&U</title>
-    <head>
-    <meta charset="UTF-8">
-    <title>Me&U</title>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
         
     <style>
@@ -324,11 +321,11 @@
     <div id="img-overlay" class="overlay"><div class="modal-rect" style="background:transparent;box-shadow:none;justify-content:center;"><div class="close-btn" onclick="closeOverlay()" style="color:white;">x</div><img id="pop-img-only" class="img-only"></div></div>
 
     <script>
-        // 请确保这三行在 <script> 标签的最顶部
-const SUPABASE_URL = 'https://gghtlvztbqtanbqedhwg.supabase.co';
-const SUPABASE_KEY = 'Sb_publishable_uTi6JLvhvzeerTeP-15smw_jzT90j9z';
-// 注意：这里定义的变量名是 _supabase (前面有个下划线)
+        const SUPABASE_URL = 'https://gghtlvztbqtanbqedhwg.supabase.co';
+// ⚠️ 注意：这里一定要填那串非常长的、点开眼睛图标后看到的 Key！
+const SUPABASE_KEY = '这里填那一长串...'; 
 const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
 
 // --- 2. 音乐核心控制逻辑 ---
 const music = document.getElementById('bg-music');
