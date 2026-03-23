@@ -324,9 +324,10 @@
     <div id="img-overlay" class="overlay"><div class="modal-rect" style="background:transparent;box-shadow:none;justify-content:center;"><div class="close-btn" onclick="closeOverlay()" style="color:white;">x</div><img id="pop-img-only" class="img-only"></div></div>
 
     <script>
-        // --- 1. 初始化 Supabase 云端连接 ---
+        // 请确保这三行在 <script> 标签的最顶部
 const SUPABASE_URL = 'https://gghtlvztbqtanbqedhwg.supabase.co';
 const SUPABASE_KEY = 'Sb_publishable_uTi6JLvhvzeerTeP-15smw_jzT90j9z';
+// 注意：这里定义的变量名是 _supabase (前面有个下划线)
 const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 // --- 2. 音乐核心控制逻辑 ---
